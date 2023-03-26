@@ -1,0 +1,1 @@
+yarn add @reduxjs/toolkit @testing-library/react @types/react-dom antd axios bootstrap jquery  moment popper.js react-redux react-router-dom react-scripts redux redux-persist redux-thunk sass

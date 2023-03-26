@@ -1,0 +1,11 @@
+@mixin icon($font-size, $margin, $color, $hover-color) {
+  font-size: $font-size;
+  margin: 0 $margin;
+  color: $color;
+  cursor: pointer;
+  transition: all 0.2s;
+  &:hover {
+    color: $hover-color;
+    transform: scale(110%);
+  }
+}
