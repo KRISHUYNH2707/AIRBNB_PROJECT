@@ -1,0 +1,98 @@
+/* HEADER */
+
+.header {
+    padding-top: 20px;
+    background-color: black;
+    padding-bottom: 30px;
+  }
+  
+  .header__wrapper {
+    position: ticky;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 100;
+    width: 90%;
+    margin: auto;
+  }
+  
+  .logo {
+    object-fit: contain;
+    height: 50px;
+    /* margin-left: 80px; */
+  
+  }
+  
+  .nav__middle {
+    max-width: fit-content;
+    height: 30px;
+    line-height: 30px;
+  }
+  
+  .nav__middle > ul > a{
+    color: white;
+    text-decoration: none;
+    padding: 0px 10px;
+  }
+  
+  .nav__right {
+    /* margin-right: 80px; */
+    width: fit-content;
+  }
+  .nav__right > div{
+    /* margin-right: 80px; */
+    padding: 0px 10px;
+  }
+  
+  
+  .header__icon {
+    font-size: 50px;
+  }
+  
+  .header__setting {
+    background-color: white;
+    padding: 5px 10px;
+    border: 1px solid #dddddd;
+    border-radius: 21px;
+    cursor: pointer;
+  }
+  
+
+
+  /* RESPONSIVE */
+   
+  /* Small screen devices (600px and above) */
+  @media only screen and (max-width:767px) and (min-width: 600px) {
+    .nav__right, .nav__middle {
+      display: none;
+    }
+  }
+   
+  /* Medium screen devices (768px and above) */
+  @media only screen and (max-width:888px) and (min-width: 768px) {
+    .nav__middle {
+      display: none;
+    }
+    .nav__right {
+      width: 35vw;
+    }
+  }
+   
+  /* Big screen devices (889px and above) */
+  @media only screen and (max-width:1199px) and (min-width: 889px) {
+    .nav__right {
+      width: 270px;
+      padding: 0px 5px;
+    }
+  }
+   
+  /* Extra big screen devices (1200px and above) */
+  @media only screen and (min-width: 1200px) {
+    .nav__right {
+      width: 300px;
+      padding: 0px 15px;
+    }
+  }
+
+
+
+  

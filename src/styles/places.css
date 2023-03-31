@@ -1,0 +1,83 @@
+.locations__wrapper{
+    max-width: 80%;
+    margin: auto;
+}
+
+.location__card{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+}
+
+.location__image {
+    border-radius: 15px;
+}
+
+.card__right h2 {
+    font-size: 16px;
+}
+
+.card__right h3 {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.619);
+}
+
+.location__details--wrapper {
+    overflow: scroll;
+}
+
+.location__details--wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+.location__details--wrapper {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
+}
+
+.detail__card {
+    margin-right: 20px;
+}
+
+.detail__card p {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.detail__card img{
+    border-radius: 15px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+/* For extremely small screen devices (595px and below)  */
+ @media only screen and (max-width: 595px) {
+    .suggested__nearbyLocation > h2,  .location__details > h2{
+        font-size: 1.3rem;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+ }
+  
+ /* Small screen devices (600px and above) */
+ @media only screen and (max-width:767px) and (min-width: 600px) {
+    .suggested__nearbyLocation > h2,  .location__details > h2{
+        font-size: 1.5rem;
+    }
+ }
+  
+ /* Medium screen devices (768px and above) */
+ @media only screen and (max-width:888px) and (min-width: 768px) {
+
+ }
+  
+ /* Big screen devices (889px and above) */
+ @media only screen and (max-width:1199px) and (min-width: 889px) {
+
+ }
+  
+ /* Extra big screen devices (1200px and above) */
+ @media only screen and (min-width: 1200px) {
+
+ }
