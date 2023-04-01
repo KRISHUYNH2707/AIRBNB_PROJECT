@@ -11,18 +11,18 @@ const { DELETE, GET, POST, PUT } = Request;
 export const fetchUserListApi = (
   page: number,
   pageSizes: number,
-  keywords: string = ""
+  keyword: string = ""
 ): AxiosPromise<HttpResponse<Content<Users>>> => {
   return axiosRequest({
     url: `/users/phan-trang-tim-kiem?pageIndex=${page}&pageSize=${pageSizes}${
-      keywords === "" ? "" : `keywords=${keywords}`
+      keyword === "" ? "" : `&keyword=${keyword}`
     }`,
     method: GET,
   });
 };
 
 export const fetchUserInfoApi = (
-  userId: string
+  userId: string | number
 ): AxiosPromise<HttpResponse<Users>> => {
   return axiosRequest({
     url: `/users/${userId}`,

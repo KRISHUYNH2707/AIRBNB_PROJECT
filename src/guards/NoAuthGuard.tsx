@@ -15,7 +15,7 @@ export default function NoAuthGuard() {
     if (loginState.token !== "") {
       switch (loginState.user.role) {
         case Role.ADMIN: {
-          navigate("/admin");
+          navigate("/admin/user-management");
 
           break;
         }

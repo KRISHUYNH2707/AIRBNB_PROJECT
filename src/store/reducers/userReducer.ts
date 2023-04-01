@@ -30,7 +30,7 @@ const DEFAULT_STATE = {
   },
   userList: {
     pageIndex: 1,
-    pageSize: 6,
+    pageSize: 5,
     totalRow: 10,
     keywords: "",
     data: [
@@ -72,12 +72,12 @@ const DEFAULT_STATE = {
 } as UserState;
 export const fetchUserListApiAction = createAsyncThunk(
   "userReducer/fetchUserListApiAction",
-  async (search: { page: number; keywords: string }) => {
-    const { page, keywords } = search;
+  async (search: { page: number; keyword: string }) => {
+    const { page, keyword } = search;
     const result = await fetchUserListApi(
       page,
       DEFAULT_STATE.userList.pageSize,
-      keywords
+      keyword
     );
     return result.data.content;
   }
@@ -109,7 +109,7 @@ export const updateUserApiAction = createAsyncThunk(
 
 export const fetchUserInfoApiAction = createAsyncThunk(
   "userReducer/fetchUserInfoApiAction",
-  async (userId: string) => {
+  async (userId: string | number) => {
     const result = await fetchUserInfoApi(userId);
     return result.data.content;
   }
@@ -132,22 +132,22 @@ const userSlice = createSlice({
         state.userList.data = data;
       }
     );
-    builder.addCase(createUserApiAction.fulfilled, (state, action) => {
+    builder.addCase(createUserApiAction.fulfilled, () => {
       notification.success({
         message: "Account created successfully!",
       });
     });
-    builder.addCase(createUserApiAction.rejected, (state, action) => {
+    builder.addCase(createUserApiAction.rejected, () => {
       notification.error({
         message: "Your email already has an account!",
       });
     });
-    builder.addCase(deleteUserApiAction.fulfilled, (state, action) => {
+    builder.addCase(deleteUserApiAction.fulfilled, () => {
       notification.warning({
         message: "Account deleted successfully!",
       });
     });
-    builder.addCase(deleteUserApiAction.rejected, (state, action) => {
+    builder.addCase(deleteUserApiAction.rejected, () => {
       notification.error({
         message:
           "The account cannot be deleted or the account has already been deleted ",
@@ -159,17 +159,17 @@ const userSlice = createSlice({
         state.userInfo = action.payload;
       }
     );
-    builder.addCase(fetchUserInfoApiAction.rejected, (state, action) => {
+    builder.addCase(fetchUserInfoApiAction.rejected, () => {
       notification.error({
         message: "There is no account with the given ID!",
       });
     });
-    builder.addCase(updateUserApiAction.fulfilled, (state, action) => {
+    builder.addCase(updateUserApiAction.fulfilled, () => {
       notification.success({
         message: "Account updated successfully!",
       });
     });
-    builder.addCase(updateUserApiAction.rejected, (state, action) => {
+    builder.addCase(updateUserApiAction.rejected, () => {
       notification.error({
         message: "The email already exists!",
       });

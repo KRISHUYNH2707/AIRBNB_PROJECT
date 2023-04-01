@@ -1,9 +1,10 @@
-import { UploadImageLocation } from "./../../interfaces/location";
 import {
   createLocationApi,
+  deleteLocationApi,
+  updateLocationApi,
   uploadImageLocationApi,
 } from "./../../services/location";
-import { fetchLocationListApi } from "services/location";
+import { fetchLocationSearchListApi } from "services/location";
 import { Content } from "interfaces/searchContent";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { LocationsDto } from "interfaces/location";
@@ -30,32 +31,10 @@ const DEFAULT_STATE = {
   },
   locationList: {
     pageIndex: 1,
-    pageSize: 4,
+    pageSize: 3,
     totalRow: 3,
     keywords: "",
-    data: [
-      {
-        id: 1,
-        quocGia: "Việt Nam",
-        hinhAnh: "",
-        tenViTri: "Quận 1",
-        tinhThanh: "Hồ Chí Minh",
-      },
-      {
-        id: 2,
-        quocGia: "Việt Nam",
-        hinhAnh: "",
-        tenViTri: "Quận 2",
-        tinhThanh: "Hồ Chí Minh",
-      },
-      {
-        id: 3,
-        quocGia: "Việt Nam",
-        hinhAnh: "",
-        tenViTri: "Quận 3",
-        tinhThanh: "Hồ Chí Minh",
-      },
-    ],
+    data: [],
   },
 } as LocationState;
 
@@ -67,11 +46,11 @@ if (localStorage.getItem("USER_INFO_KEY")) {
   DEFAULT_STATE.token = token;
 }
 
-export const fetchLocationListApiAction = createAsyncThunk(
-  "locationReducer/fetchLocationListApiAction",
+export const fetchLocationSearchListApiAction = createAsyncThunk(
+  "locationReducer/fetchLocationSearchListApiAction",
   async (search: { page: number; keyword: string }) => {
     const { page, keyword } = search;
-    const result = await fetchLocationListApi(
+    const result = await fetchLocationSearchListApi(
       page,
       DEFAULT_STATE.locationList.pageSize,
       keyword
@@ -87,9 +66,23 @@ export const fetchCreateLocationApiAction = createAsyncThunk(
   }
 );
 
+export const fetchUpdateLocationApiAction = createAsyncThunk(
+  "locationReducer/fetchUpdateLocationApiAction",
+  async (upload: { id: number; data: LocationsDto }) => {
+    await updateLocationApi(upload.id, upload.data);
+  }
+);
+
+export const fetchDeleteLocationApiAction = createAsyncThunk(
+  "locationReducer/fetchDeleteLocationApiAction",
+  async (id: number) => {
+    await deleteLocationApi(id);
+  }
+);
+
 export const fetchUploadImageLocationApiAction = createAsyncThunk(
   "locationReducer/fetchUploadImageLocationApiAction",
-  async (upload: { locationId: number; data: UploadImageLocation }) => {
+  async (upload: { locationId: number; data: FormData }) => {
     const { locationId, data } = upload;
     await uploadImageLocationApi(locationId, data);
   }
@@ -106,12 +99,12 @@ const locationSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(
-      fetchLocationListApiAction.fulfilled,
+      fetchLocationSearchListApiAction.fulfilled,
       (state: LocationState, action: PayloadAction<Content<LocationsDto>>) => {
         state.locationList = action.payload;
       }
     );
-    builder.addCase(fetchLocationListApiAction.rejected, () => {
+    builder.addCase(fetchLocationSearchListApiAction.rejected, () => {
       notification.error({
         message: "Error !",
       });
@@ -122,6 +115,16 @@ const locationSlice = createSlice({
       });
     });
     builder.addCase(fetchCreateLocationApiAction.rejected, () => {
+      notification.error({
+        message: "Error !",
+      });
+    });
+    builder.addCase(fetchUpdateLocationApiAction.fulfilled, () => {
+      notification.success({
+        message: "Update location successfully !",
+      });
+    });
+    builder.addCase(fetchUpdateLocationApiAction.rejected, () => {
       notification.error({
         message: "Error !",
       });

@@ -27,7 +27,6 @@ export default function AdminGuard(): JSX.Element {
           notification.success({
             message: "Accessed management page successfully!",
           });
-          navigate("/admin");
           break;
         default:
           break;

@@ -23,12 +23,27 @@ th.ant-table-cell {
   color: rgb(255 255 255 / 88%) !important;
   background: #086788 !important;
 }
-
-.title-admin {
-  background-color: transparent;
-  text-align: center;
-  h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
+.form-main {
+  border-radius: 2.3rem;
+  overflow: hidden;
+  padding: 0px 0px !important;
+  border: 0.5px dashed #086788 !important;
+  .title-admin {
+    background-color: #086788 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #fff;
+    }
   }
+}
+
+.ant-menu-item {
+  display: flex !important;
+  // justify-content: center !important;
+  // align-items: center !important;
+  // padding: 0 !important;
 }

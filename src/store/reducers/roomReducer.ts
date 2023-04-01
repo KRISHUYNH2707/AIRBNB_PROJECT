@@ -1,3 +1,9 @@
+import {
+  createRoomApi,
+  deleteRoomApi,
+  getRoomApi,
+  updateRoomApi,
+} from "./../../services/room";
 import { notification } from "antd";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { RoomsDto } from "interfaces/room";
@@ -36,6 +42,34 @@ export const fetchRoomListApiAction = createAsyncThunk(
   }
 );
 
+export const fetchGetRoomApi = createAsyncThunk(
+  "roomReducer/fetchGetRoomApi",
+  async (id: string) => {
+    const result = await getRoomApi(id);
+    return result.data.content;
+  }
+);
+export const fetchUpdateRoomApiAction = createAsyncThunk(
+  "roomReducer/fetchUpdateRoomApiAction",
+  async (update: { id: number; data: RoomsDto }) => {
+    await updateRoomApi(update.id, update.data);
+  }
+);
+
+export const fetchCreateRoomApiAction = createAsyncThunk(
+  "roomReducer/fetchCreateRoomApiAction",
+  async (data: RoomsDto) => {
+    await createRoomApi(data);
+  }
+);
+
+export const fetchDeleteRoomApi = createAsyncThunk(
+  "roomReducer/fetchDeleteRoomApi",
+  async (id: number) => {
+    await deleteRoomApi(id);
+  }
+);
+
 const roomSlice = createSlice({
   name: "roomReducer",
   initialState: DEFAULT_STATE,
@@ -49,6 +83,50 @@ const roomSlice = createSlice({
     );
 
     builder.addCase(fetchRoomListApiAction.rejected, () => {
+      notification.error({
+        message: "Error !",
+      });
+    });
+    builder.addCase(fetchCreateRoomApiAction.fulfilled, () => {
+      notification.success({
+        message: "Create room successfully!",
+      });
+    });
+
+    builder.addCase(fetchCreateRoomApiAction.rejected, () => {
+      notification.error({
+        message: "Error !",
+      });
+    });
+    builder.addCase(
+      fetchGetRoomApi.fulfilled,
+      (state: RoomState, action: PayloadAction<RoomsDto>) => {
+        state.roomInfo = action.payload;
+      }
+    );
+
+    builder.addCase(fetchGetRoomApi.rejected, () => {
+      notification.error({
+        message: "Error !",
+      });
+    });
+    builder.addCase(fetchUpdateRoomApiAction.fulfilled, () => {
+      notification.success({
+        message: "Update room successfully!",
+      });
+    });
+    builder.addCase(fetchUpdateRoomApiAction.rejected, () => {
+      notification.error({
+        message: "Error !",
+      });
+    });
+    builder.addCase(fetchDeleteRoomApi.fulfilled, () => {
+      notification.success({
+        message: "Delete room successfully !",
+      });
+    });
+
+    builder.addCase(fetchDeleteRoomApi.rejected, () => {
       notification.error({
         message: "Error !",
       });

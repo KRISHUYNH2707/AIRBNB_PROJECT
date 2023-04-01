@@ -1,3 +1,5 @@
+import { commentReducer } from "./reducers/commentReducer";
+import { roomReservationReducer } from "./reducers/roomReservationReducer";
 import { roomReducer } from "./reducers/roomReducer";
 import { addressReducer } from "./reducers/addressReducer";
 import { AnyAction, combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -14,6 +16,8 @@ const rootReducer = combineReducers({
   locationReducer: locationReducer,
   addressReducer: addressReducer,
   roomReducer: roomReducer,
+  roomReservationReducer: roomReservationReducer,
+  commentReducer: commentReducer,
 });
 
 export const store = configureStore({

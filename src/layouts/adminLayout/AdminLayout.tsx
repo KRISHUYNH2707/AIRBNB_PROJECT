@@ -5,17 +5,16 @@ import {
   ProfileOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import type { MenuProps } from "antd";
-import { Breadcrumb, Layout, Menu } from "antd";
+import { MenuProps } from "antd";
+import { Layout, Menu } from "antd";
 import { Outlet, useNavigate } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
-import { persistor, RootDispatch, RootState } from "store/config";
-import { useDispatch, useSelector } from "react-redux";
+import { persistor, RootDispatch } from "store/config";
+import { useDispatch } from "react-redux";
 import { loginActions } from "store/reducers/loginReducer";
 import "./index.scss";
 
 export default function AdminLayout(): JSX.Element {
-  const userState = useSelector((state: RootState) => state.loginReducer);
   const dispatch = useDispatch<RootDispatch>();
 
   const [path, setPath] = useState({
@@ -79,11 +78,24 @@ export default function AdminLayout(): JSX.Element {
         >
           <div
             style={{
-              height: 32,
-              margin: 16,
+              height: 60,
+              margin: 8,
               background: "rgba(255, 255, 255, 0.2)",
+              cursor: "pointer",
+              overflow: "hidden",
             }}
-          />
+            onClick={() => navigate("/")}
+          >
+            <img
+              className="mb-5 pl-2"
+              src="https://www.pngkey.com/png/full/60-606021_horizontal-white-transparent-for-web-airbnb-logo-white.png"
+              alt=""
+              style={{
+                height: "100%",
+                padding: "15px 15px 15px 20px",
+              }}
+            />
+          </div>
           <Menu
             theme="dark"
             defaultSelectedKeys={["1"]}
@@ -101,19 +113,22 @@ export default function AdminLayout(): JSX.Element {
                 alignItems: "center",
               }}
             >
-              <Breadcrumb
+              <div
                 style={{
+                  width: "300px",
                   margin: "16px 0",
                 }}
               >
-                <Breadcrumb.Item>admin</Breadcrumb.Item>
-                <Breadcrumb.Item
-                  className="cursor-pointer"
+                <span>admin {` / `}</span>
+                <span
+                  className="cursor-pointer ml-2 text-dark"
                   onClick={() => navigate(path.path)}
                 >
+                  {" "}
                   {path.path}
-                </Breadcrumb.Item>
-              </Breadcrumb>
+                </span>
+              </div>
+
               <button className="btn btn-danger" onClick={handleLogout}>
                 Đăng xuất
               </button>

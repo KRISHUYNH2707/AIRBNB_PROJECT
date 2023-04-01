@@ -13,6 +13,7 @@ import { DistrictsDto, ProvincesDto } from "interfaces/address";
 import { LocationsDto } from "interfaces/location";
 import {
   fetchCreateLocationApiAction,
+  fetchUpdateLocationApiAction,
   fetchUploadImageLocationApiAction,
 } from "store/reducers/locationReducer";
 import { CloudUploadOutlined } from "@ant-design/icons";
@@ -60,12 +61,13 @@ export default function LocationForm(): JSX.Element {
       quocGia,
       tenViTri,
       tinhThanh,
-      hinhAnh: hinhAnh || "",
+      hinhAnh: (locationId && hinhAnh) || "",
     };
     if (locationId) {
       setLoading({ isLoading: true });
-      await dispatch(fetchCreateLocationApiAction(data));
+      await dispatch(fetchUpdateLocationApiAction({ id, data: data }));
       setLoading({ isLoading: false });
+      navigate(`${ADMIN + LOCATION}`);
     } else {
       const provinceTest: ProvincesDto[] = addressState.provincesList.filter(
         (province) => {
@@ -91,14 +93,12 @@ export default function LocationForm(): JSX.Element {
           setLoading({ isLoading: false });
         } else {
           Modal.error({
-            title: "Please select the district again!",
+            title: "Please select the province again!",
           });
         }
       }
     }
   };
-
-  //dạ em làm upload riêng á anh nó nằm chung vơi form thêm thế thôi anh chọn ảnh là nó ra nút upload
 
   const handleConfirmSubmit = (data: LocationsDto): void => {
     Modal.confirm({
@@ -159,10 +159,7 @@ export default function LocationForm(): JSX.Element {
       const result = await dispatch(
         fetchUploadImageLocationApiAction({
           locationId: id,
-          data: {
-            id: id,
-            formFile: formData,
-          },
+          data: formData,
         })
       );
       setLoading({ isLoading: false });
@@ -213,63 +210,65 @@ export default function LocationForm(): JSX.Element {
         }}
         style={{ maxWidth: 600, margin: "0 auto" }}
         scrollToFirstError
-        className="col-6"
+        className="col-6 form-main"
       >
         <Header className="mb-4 title-admin">
           <h1>{locationId ? "Update Location" : "Add Location"}</h1>
         </Header>
-        <Form.Item
-          name="quocGia"
-          label="Country"
-          rules={[
-            {
-              required: true,
-              message: "Please select your country!",
-            },
-          ]}
-        >
-          <Select>
-            <Select.Option value="Việt Nam">Việt Nam</Select.Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name="tinhThanh"
-          label="Provinces"
-          rules={[
-            {
-              required: true,
-              message: "Please select your province!",
-            },
-          ]}
-        >
-          <Select onChange={handleChange}>{renderProvinceList()}</Select>
-        </Form.Item>
-        <Form.Item
-          name="tenViTri"
-          label="Districts"
-          rules={[
-            {
-              required: true,
-              message: "Please select your districts !",
-            },
-          ]}
-        >
-          <Select>{renderDistrictsList()}</Select>
-        </Form.Item>
-
-        {imagePreview ? (
-          <></>
-        ) : (
-          <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">
-              {locationId ? "Upload Location" : "Add Location"}
-            </Button>
+        <div className="p-2">
+          <Form.Item
+            name="quocGia"
+            label="Country"
+            rules={[
+              {
+                required: true,
+                message: "Please select your country!",
+              },
+            ]}
+          >
+            <Select>
+              <Select.Option value="Việt Nam">Việt Nam</Select.Option>
+            </Select>
           </Form.Item>
-        )}
+          <Form.Item
+            name="tinhThanh"
+            label="Provinces"
+            rules={[
+              {
+                required: true,
+                message: "Please select your province!",
+              },
+            ]}
+          >
+            <Select onChange={handleChange}>{renderProvinceList()}</Select>
+          </Form.Item>
+          <Form.Item
+            name="tenViTri"
+            label="Districts"
+            rules={[
+              {
+                required: true,
+                message: "Please select your districts !",
+              },
+            ]}
+          >
+            <Select>{renderDistrictsList()}</Select>
+          </Form.Item>
+
+          {imagePreview ? (
+            <></>
+          ) : (
+            <Form.Item {...tailFormItemLayout}>
+              <Button type="primary" htmlType="submit">
+                {locationId ? "Upload Location" : "Add Location"}
+              </Button>
+            </Form.Item>
+          )}
+        </div>
       </Form>{" "}
       {locationId && (
         <div
-          className="col-6"
+          className="col-6 form-main"
           style={{
             height: 800,
             display: "flex",
@@ -277,7 +276,12 @@ export default function LocationForm(): JSX.Element {
             flexDirection: "column",
           }}
         >
-          <Header className="mb-4 title-admin">
+          <Header
+            className="mb-4 title-admin"
+            style={{
+              width: "100%",
+            }}
+          >
             <h1> Upload Image</h1>
           </Header>
           <Image
@@ -288,6 +292,7 @@ export default function LocationForm(): JSX.Element {
                 ? "https://whatdreammeans.com/wp-content/uploads/2021/09/what-does-your-address-mean.png"
                 : hinhAnh
             }
+            width={400}
           />
           <Input type="file" onChange={(event) => handleFile(event)} />
           {imagePreview !== "" && (

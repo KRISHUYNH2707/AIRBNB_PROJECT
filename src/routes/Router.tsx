@@ -14,6 +14,7 @@ import RoomReservationInformation from "pages/room-reservation-information/RoomR
 import UserForm from "pages/user-form/UserForm";
 import UserManagement from "pages/user-management/UserManagement";
 import RoomForm from "pages/room-form/RoomForm";
+import CommentPage from "pages/comment/CommentPage";
 
 export default function Router(): React.ReactElement<any> | null {
   //path
@@ -87,6 +88,10 @@ export default function Router(): React.ReactElement<any> | null {
         },
         {},
       ],
+    },
+    {
+      path: "/comment",
+      element: <CommentPage />,
     },
     {
       path: "*",

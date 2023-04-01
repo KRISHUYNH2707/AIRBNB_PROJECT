@@ -9,12 +9,12 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 export default function Login(): JSX.Element {
   const dispatch = useDispatch<RootDispatch>();
   const navigate: NavigateFunction = useNavigate();
-  const [, setLoadingState] = useContext<any>(LoadingContext);
+  const [, setLoading] = useContext(LoadingContext);
 
   const onFinish = async (values: { username: string; password: string }) => {
-    setLoadingState({ isLoading: true });
+    setLoading({ isLoading: true });
     await dispatch(fetchLoginApiAction(values));
-    setLoadingState({ isLoading: false });
+    setLoading({ isLoading: false });
     navigate("/");
   };
 

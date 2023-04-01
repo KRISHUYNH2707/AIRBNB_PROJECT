@@ -146,9 +146,7 @@ export default function UserForm(): JSX.Element {
           >
             <Image
               src={
-                imagePreview !== ""
-                  ? imagePreview
-                  : avatar === ""
+                avatar === "" || avatar === "string"
                   ? "https://th.bing.com/th/id/R.6b0022312d41080436c52da571d5c697?rik=ejx13G9ZroRrcg&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fuser-png-icon-young-user-icon-2400.png&ehk=NNF6zZUBr0n5i%2fx0Bh3AMRDRDrzslPXB0ANabkkPyv0%3d&risl=&pid=ImgRaw&r=0"
                   : avatar
               }
@@ -169,142 +167,145 @@ export default function UserForm(): JSX.Element {
           initialValues={{}}
           style={{ maxWidth: 600 }}
           scrollToFirstError
+          className="form-main"
         >
           <Header className="mb-4 title-admin">
             <h1> {userId ? "Update" : "Add User"} </h1> :
           </Header>
-          <Form.Item
-            name="name"
-            label="Name"
-            tooltip="What do you want others to call you?"
-            rules={[
-              {
-                required: true,
-                message: "Please input your name!",
-                whitespace: true,
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="email"
-            label="E-mail"
-            tooltip="How can I contact you?"
-            rules={[
-              {
-                type: "email",
-                message: "The input is not valid E-mail!",
-              },
-              {
-                required: true,
-                message: "Please input your E-mail!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
+          <div className="p-2">
+            <Form.Item
+              name="name"
+              label="Name"
+              tooltip="What do you want others to call you?"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your name!",
+                  whitespace: true,
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="email"
+              label="E-mail"
+              tooltip="How can I contact you?"
+              rules={[
+                {
+                  type: "email",
+                  message: "The input is not valid E-mail!",
+                },
+                {
+                  required: true,
+                  message: "Please input your E-mail!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
 
-          {userId ? (
-            <>
-              <Form.Item name="role" label="Admin" valuePropName="checked">
-                <Switch />
-              </Form.Item>
-            </>
-          ) : (
-            <>
-              <Form.Item
-                name="password"
-                label="Password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your password!",
-                  },
-                  {
-                    pattern: new RegExp(
-                      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm
-                    ),
-                    message:
-                      "Minimum of eight characters, at least one uppercase letter, one lowercase letter, and one number.",
-                  },
-                ]}
-                hasFeedback
-              >
-                <Input.Password />
-              </Form.Item>
-              <Form.Item
-                name="confirm"
-                label="Confirm Password"
-                dependencies={["password"]}
-                hasFeedback
-                rules={[
-                  {
-                    required: true,
-                    message: "Please confirm your password!",
-                  },
-                  ({ getFieldValue }) => ({
-                    validator(_, value) {
-                      if (!value || getFieldValue("password") === value) {
-                        return Promise.resolve();
-                      }
-                      return Promise.reject(
-                        new Error(
-                          "The two passwords that you entered do not match!"
-                        )
-                      );
+            {userId ? (
+              <>
+                <Form.Item name="role" label="Admin" valuePropName="checked">
+                  <Switch />
+                </Form.Item>
+              </>
+            ) : (
+              <>
+                <Form.Item
+                  name="password"
+                  label="Password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your password!",
                     },
-                  }),
-                ]}
-              >
-                <Input.Password />
-              </Form.Item>{" "}
-            </>
-          )}
+                    {
+                      pattern: new RegExp(
+                        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm
+                      ),
+                      message:
+                        "Minimum of eight characters, at least one uppercase letter, one lowercase letter, and one number.",
+                    },
+                  ]}
+                  hasFeedback
+                >
+                  <Input.Password />
+                </Form.Item>
+                <Form.Item
+                  name="confirm"
+                  label="Confirm Password"
+                  dependencies={["password"]}
+                  hasFeedback
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please confirm your password!",
+                    },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue("password") === value) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          new Error(
+                            "The two passwords that you entered do not match!"
+                          )
+                        );
+                      },
+                    }),
+                  ]}
+                >
+                  <Input.Password />
+                </Form.Item>{" "}
+              </>
+            )}
 
-          <Form.Item
-            name="birthday"
-            label="Birthday"
-            rules={[
-              {
-                type: "object" as const,
-                required: true,
-                message: "Please select time!",
-              },
-            ]}
-          >
-            <DatePicker format={dateFormatList} />
-          </Form.Item>
+            <Form.Item
+              name="birthday"
+              label="Birthday"
+              rules={[
+                {
+                  type: "object" as const,
+                  required: true,
+                  message: "Please select time!",
+                },
+              ]}
+            >
+              <DatePicker format={dateFormatList} />
+            </Form.Item>
 
-          <Form.Item
-            name="phone"
-            label="Phone Number"
-            rules={[
-              { required: true, message: "Please input your phone number!" },
-              {
-                pattern: new RegExp(/^0\d{9}$/),
-                message: "Must contain 10 digits and start with 0.",
-              },
-            ]}
-          >
-            <Input style={{ width: "100%" }} />
-          </Form.Item>
+            <Form.Item
+              name="phone"
+              label="Phone Number"
+              rules={[
+                { required: true, message: "Please input your phone number!" },
+                {
+                  pattern: new RegExp(/^0\d{9}$/),
+                  message: "Must contain 10 digits and start with 0.",
+                },
+              ]}
+            >
+              <Input style={{ width: "100%" }} />
+            </Form.Item>
 
-          <Form.Item
-            name="gender"
-            label="Gender"
-            rules={[{ required: true, message: "Please select gender!" }]}
-          >
-            <Select placeholder="select your gender">
-              <Option value="male">Male</Option>
-              <Option value="female">Female</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">
-              {userId ? "Update" : "Add"}
-            </Button>
-          </Form.Item>
+            <Form.Item
+              name="gender"
+              label="Gender"
+              rules={[{ required: true, message: "Please select gender!" }]}
+            >
+              <Select placeholder="select your gender">
+                <Option value="male">Male</Option>
+                <Option value="female">Female</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item {...tailFormItemLayout}>
+              <Button type="primary" htmlType="submit">
+                {userId ? "Update" : "Add"}
+              </Button>
+            </Form.Item>
+          </div>
         </Form>
       </div>
     </div>
