@@ -5,7 +5,7 @@ import { BsSearch } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { DateRangePicker } from "react-date-range";
+import { DateRangePicker} from "react-date-range";
 import { fetchLocationApi } from "../../../../services/location";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { useDispatch } from "react-redux";
@@ -45,6 +45,9 @@ function Carousel(): JSX.Element {
         key: "selection",
     };
 
+ 
+    
+
     useEffect(() => {
         getLocationList();
     }, []);
@@ -70,7 +73,6 @@ function Carousel(): JSX.Element {
             }
         })
     })
-
 
     const getLocationList = async () => {
         const result = await fetchLocationApi();
@@ -109,6 +111,25 @@ function Carousel(): JSX.Element {
     };
 
     const navigate = useNavigate();
+
+    const [windowSize, setWindowSize] = useState(
+        window.innerWidth
+);
+    
+      useEffect(() => {
+        const handleWindowResize = () => {
+          setWindowSize(window.innerWidth);
+        };
+    
+        window.addEventListener('resize', handleWindowResize);
+    
+        return () => {
+          window.removeEventListener('resize', handleWindowResize);
+        };
+      });
+
+    console.log(windowSize)
+
     return (
         <div className="carousel">
             <div className="search__bar d-flex justify-content-center">
@@ -137,9 +158,11 @@ function Carousel(): JSX.Element {
                         <p>Nhận phòng</p>
                         <input
                             type="text"
-                            placeholder="Thêm ngày"
-                            value={startDate.toLocaleDateString()}
-                            onFocus={()=>setDatePickerOnClick(true)}
+                            placeholder={(windowSize > 524) ? startDate.toLocaleDateString() : 'Thêm ngày'}
+                            value={(windowSize > 524) ? startDate.toLocaleDateString() : 'Thêm ngày'}
+                            onFocus={()=>
+                                setDatePickerOnClick(true)    
+                                }
                         />
                     </div>
                     <div className="book__out">

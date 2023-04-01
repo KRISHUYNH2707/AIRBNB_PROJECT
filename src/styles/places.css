@@ -1,3 +1,7 @@
+.locations {
+padding-bottom: 15px;
+}
+
 .locations__wrapper{
     max-width: 80%;
     margin: auto;
@@ -24,17 +28,28 @@
 }
 
 .location__details--wrapper {
-    overflow: scroll;
+    overflow: auto;
+    overflow-y: hidden;
+
 }
 
-.location__details--wrapper::-webkit-scrollbar {
-    display: none;
-  }
-
-.location__details--wrapper {
--ms-overflow-style: none;  /* IE and Edge */
-scrollbar-width: none;  /* Firefox */
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    height: 7px;
 }
+
+::-webkit-scrollbar-track {
+    background-color: #ebebeb;
+    -webkit-border-radius: 10px;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 20px;
+    background: #6d6d6d;
+}
+
 
 .detail__card {
     margin-right: 20px;
@@ -50,9 +65,19 @@ scrollbar-width: none;  /* Firefox */
     cursor: pointer;
     margin-bottom: 10px;
 }
+@media only screen and (max-width: 410px) {
+    .suggested__nearbyLocation > h2, .location__details > h2{
+        font-size: 1.3rem;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+    .card__right h2 {
+        font-size: 1rem
+    }
+}
 
 /* For extremely small screen devices (595px and below)  */
- @media only screen and (max-width: 595px) {
+ @media only screen and (max-width: 595px) and (min-width: 411px) {
     .suggested__nearbyLocation > h2,  .location__details > h2{
         font-size: 1.3rem;
         margin-top: 30px;

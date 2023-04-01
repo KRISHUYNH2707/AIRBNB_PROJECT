@@ -9,6 +9,7 @@ import { fetchLocationApi } from "../services/location";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { useDispatch } from "react-redux";
 import { setSelectedLocationReducer } from "../store/actions/locationInfor";
+import { lineHeight } from "@mui/system";
 
 
 interface Location {
@@ -24,15 +25,16 @@ function LocationList() {
 
     const inlineStyles:{ [key: string]: React.CSSProperties } = {
         locationInput__List: {
-            marginTop: "20px",
-            borderRadius: "20px",
+            marginTop: "30px",
+            marginBottom: "20px",
+            marginRight: '80px',
+            borderRadius: "0px",
             width: "500px",
             maxHeight: "50vh",
             overflow: "scroll",
-            padding: "2rem",
+            padding: "0rem 0rem 2rem 0rem",
             overflowX: "hidden",
-            position: 'absolute',
-            left: '-5px'
+            
         }
     }
 
@@ -104,7 +106,7 @@ function LocationList() {
                                 alt=""
                             />
                         </div>
-                        <div>
+                        <div style={{lineHeight:'80px'}}>
                             <button
                                 onClick={() => {
                                     setSelectedLocation(ele.tenViTri + ', ' + ele.tinhThanh);
@@ -124,7 +126,7 @@ function LocationList() {
     };
 
   return (
-    <div className="locationInput__List" style={inlineStyles.locationInput__List}>
+    <div className="" style={inlineStyles.locationInput__List}>
         {renderLocationList()}
     </div>
   )

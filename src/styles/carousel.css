@@ -35,77 +35,77 @@
 /* SEARCH BAR */
 
 img.introLocation__image {
-  height: 80px;
-  width: 80px;
-  object-fit: contain;
-  border-radius: 15px;
-  margin-right: 20px
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
+    border-radius: 15px;
+    margin-right: 20px;
 }
 
-.locationInput__List{
-  margin-top: 20px;
-  border-radius: 20px;
-  padding: 0;
-  width: 500px;
-  max-height: 50vh;
-  overflow: scroll;   
-  padding: 2rem 2rem;
-  position: absolute;
-  left: -5px;
-  overflow-x: hidden;
+.locationInput__List {
+    margin-top: 20px;
+    border-radius: 20px;
+    padding: 0;
+    width: 500px;
+    max-height: 50vh;
+    overflow: scroll;
+    padding: 2rem 2rem;
+    position: absolute;
+    left: -5px;
+    overflow-x: hidden;
 }
 
 .locationInput__item--wrapper button {
-  background: transparent;
-  border: none;
-  outline: none;
+    background: transparent;
+    border: none;
+    outline: none;
 }
 .locationInput__item--wrapper p:hover {
-  color:#FF385C;
+    color: #ff385c;
 }
 
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
-  width: 9px;
+    width: 9px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #ebebeb;
-  -webkit-border-radius: 10px;
-  border-radius: 20px;
+    background-color: #ebebeb;
+    -webkit-border-radius: 10px;
+    border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 10px;
-  border-radius: 20px;
-  background: #6d6d6d; 
+    -webkit-border-radius: 10px;
+    border-radius: 20px;
+    background: #6d6d6d;
 }
 
 .places {
-  position: relative;
+    position: relative;
 }
 
 .search__bar .search__bar--wrapper .locationInput__List div {
-  padding: 0;
-  align-items: center;
+    padding: 0;
+    align-items: center;
 }
 
 .search__bar .search__bar--wrapper .locationInput__List p {
-  top: 50%;
+    top: 50%;
 }
 
 .locationInput__List {
-  display: flex;
-  flex-direction: column;
-  background: white;
+    display: flex;
+    flex-direction: column;
+    background: white;
 }
 
-.search__bar{
- position: absolute;
- margin-top: -30px;
- width: 100%;
- align-items: center;
- flex-direction: column;
+.search__bar {
+    position: absolute;
+    margin-top: -30px;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
 }
 
 .search__bar--wrapper {
@@ -119,28 +119,28 @@ img.introLocation__image {
     font-size: 0.9rem;
 }
 
-.search__bar--wrapper>div {
+.search__bar--wrapper > div {
     border-radius: inherit;
     padding: 0.2rem 1.5rem;
     transition: background 250ms ease;
 }
 
-.search__bar--wrapper > div:hover{
-    background: hsl(0 0% 94%)
+.search__bar--wrapper > div:hover {
+    background: hsl(0 0% 94%);
 }
 
-.places, .guest {
+.places,
+.guest {
     width: 30%;
 }
-.book__in, .book__out {
-    width: 20%
+.book__in,
+.book__out {
+    width: 20%;
 }
 
 .rdrDateDisplayWrapper {
-  display: none;
+    display: none;
 }
-
-
 
 .search__bar p {
     margin-top: 0.3rem;
@@ -148,109 +148,261 @@ img.introLocation__image {
     font-weight: bold;
 }
 
-input[type="text"]{
+input[type="text"] {
     background: none;
     border: none;
     padding: 0.2rem 0 0 0;
-  }
-  
-  input[type="text"]:focus{
-    outline:none;
-  }
-  
-  ::placeholder{
-    font-size:0.8rem;
-  }
+}
+
+input[type="text"]:focus {
+    outline: none;
+}
+
+::placeholder {
+    font-size: 0.8rem;
+}
 
 .guest {
     position: relative;
 }
 
-.guest button{
+.guest button {
     position: absolute;
-    background:#FF385C;
-    color:white;
-    font-size:0.8rem;
-    padding:0.8rem;
-    border-radius:50%;
-    border-style:hidden ;
+    background: #ff385c;
+    color: white;
+    font-size: 0.8rem;
+    padding: 0.8rem;
+    border-radius: 50%;
+    border-style: hidden;
     top: 50%;
     transform: translateY(-50%);
     right: 20px;
     font-size: 1rem;
-  }
+}
 
-.search__bar--wrapper>div{
+.search__bar--wrapper > div {
     position: relative;
 }
 
-.search__bar--wrapper>div::before{
+.search__bar--wrapper > div::before {
     position: absolute;
     content: "";
-    width:1px;
-    height:55%;
-    background:hsl(0 0% 90%);
-    left:0;
+    width: 1px;
+    height: 55%;
+    background: hsl(0 0% 90%);
+    left: 0;
     top: 50%;
-    transform: translateY(-50%)
-  }
-
-.search__bar--wrapper>div::before{
-    background:transparent;
+    transform: translateY(-50%);
 }
 
-.search__bar--wrapper>div{
+.search__bar--wrapper > div::before {
+    background: transparent;
+}
+
+.search__bar--wrapper > div {
     margin-left: 0.3rem;
 }
 
-.search__bar--wrapper>div:hover::before{
-background:transparent;
+.search__bar--wrapper > div:hover::before {
+    background: transparent;
 }
 
 /* DATE PICKER */
 .carousel .search__bar .search__bar--wrapper .book__in div {
-  padding: 1rem 1rem;
-  border-radius: 0
+    padding: 1rem 1rem;
+    border-radius: 0;
 }
 
 .datePicker {
-display: flex;
-flex-direction: column;
-  
+    display: flex;
+    flex-direction: column;
 }
 
 .rdrDateRangePickerWrapper {
-  border-bottom: 1px solid lightgray;
-  border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    border-top: 1px solid lightgray;
 }
 
+.rdrStaticRanges button:nth-of-type(2),
+.rdrStaticRanges button:nth-of-type(4),
+.rdrStaticRanges button:nth-of-type(6) {
+  display: none;
+}
+
+.rdrInputRanges .rdrInputRange:nth-of-type(1) {
+display: none;
+}
+
+
+
 .num__guest {
-  background-color: white;
-  align-items: center;
+    background-color: white;
+    align-items: center;
 }
 
 .num__guest--wrapper {
-  padding: 0 5px;
+    padding: 0 5px;
 }
 
-.guest__input{
-  width: 50px;
-  margin-left: 10px;
-  border: none;
-  font-size:16px
+.guest__input {
+    width: 50px;
+    margin-left: 10px;
+    border: none;
+    font-size: 16px;
 }
 
 input.guest__input {
-  outline: none;
-  line-height: 24px;
+    outline: none;
+    line-height: 24px;
 }
-
 
 /* END OF DATE PICKER */
 
-  /* RESPONSIVE */
-  /* For extremely small screen devices (595px and below) */
-  @media only screen and (max-width: 595px) {
+@media only screen and (max-width: 400px){
+  .carousel {
+    padding-top: 0;
+}
+.search__bar {
+    margin-top: 30px;
+}
+.search__bar--wrapper {
+    width: 85%;
+}
+.guest button {
+    padding: 0.5rem;
+    right:15px;
+}
+.search__bar--wrapper div {
+    padding: 0.2rem 0.6rem;
+}
+.search__bar--wrapper > div:nth-of-type(1) {
+    padding-right: 0;
+    padding-left: 1.5rem;
+}
+.book__out {
+  display: none;
+}
+
+.guest {
+  padding: 0!important;
+}
+
+
+.book__in {
+  width: 50%;
+  padding: 0.2rem 1rem!important;
+}
+
+.locationInput__List {
+  width:  90vw !important;
+}
+
+.search__bar--wrapper > div:nth-of-type(1) {
+  min-width: 50% !important;
+}
+
+.rdrDefinedRangesWrapper {
+  display: none;
+}
+.rdrDateDisplayWrapper {
+  display: block;
+}
+
+.book__in p {
+  visibility: hidden;
+  position: relative;
+}
+.book__in p:after {
+  visibility: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "Ngày";
+}
+
+.places p, .places input, .book__in p, .book__in input{
+  font-size: 14px
+}
+
+.suggesteLocation__image img {
+  margin-right: 5px;
+  height: 60px;
+  width: 60px
+}
+.carousel__desc p {
+  font-size: 1.1rem;
+}
+}
+
+/* SMALL DEVICES */
+@media only screen and (max-width: 524px) and (min-width: 401px) {
+  .carousel {
+    padding-top: 0;
+}
+.search__bar {
+    margin-top: 30px;
+}
+.search__bar--wrapper {
+    width: 85%;
+}
+.guest button {
+    padding: 0.5rem;
+    right:15px;
+}
+.search__bar--wrapper div {
+    padding: 0.2rem 0.6rem;
+}
+.search__bar--wrapper > div:nth-of-type(1) {
+    padding-right: 0;
+    padding-left: 1.5rem;
+}
+.book__out {
+  display: none;
+}
+
+.guest {
+  padding: 0!important;
+}
+
+
+.book__in {
+  width: 50%;
+  padding: 0.2rem 1rem!important;
+}
+
+.locationInput__List {
+  width:  365px !important;
+}
+
+.search__bar--wrapper > div:nth-of-type(1) {
+  min-width: 50% !important;
+}
+
+.rdrDefinedRangesWrapper {
+  display: none;
+}
+.rdrDateDisplayWrapper {
+  display: block;
+}
+
+.book__in p {
+  visibility: hidden;
+  position: relative;
+}
+.book__in p:after {
+  visibility: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "Nhận/Trả phòng";
+}
+
+  
+}
+
+/* RESPONSIVE */
+/* For extremely small screen devices (595px and below) */
+@media only screen and (max-width: 595px) and (min-width: 525px) {
     .carousel {
         padding-top: 0;
     }
@@ -262,124 +414,149 @@ input.guest__input {
     }
     .guest button {
         padding: 0.5rem;
-        right: 10px;
+        right: 25px;
     }
     .search__bar--wrapper div {
-        padding: 0.2rem 0.6rem
+        padding: 0.2rem 0.6rem;
     }
-    .search__bar--wrapper>div:nth-of-type(1) {
+    .search__bar--wrapper > div:nth-of-type(1) {
         padding-right: 0;
         padding-left: 1.5rem;
     }
+
+  .book__in {
+    width: 25%;
+  }
+  .book__out{
+    width: 30%;
   }
 
-  /* For extremely small screen devices (595px and below) */
-  @media only screen and (max-width: 599px) {
+}
 
+/* For extremely small screen devices (595px and below) */
+@media only screen and (max-width: 599px){
     .header {
-      display: none;
+        display: none;
     }
 
-    .search__bar--wrapper {
-      width: 90%;
-  }
-
-  .search__bar--wrapper div {
-      padding: 0.2rem 0.9rem
-  }
-
-  .search__bar--wrapper {
-      justify-content: space-between;
-    }
-
-    .book__in, .book__out, .guest p, .guest input{
-      display:none;
-    }
-
-  .search__bar--wrapper>div:nth-of-type(1) {
-      margin-left: 1rem;
-  }
-  .guest button {
-      padding: 0.7rem;
-  }
-  }
-   
-  /* Small screen devices (600px and above) */
-  @media only screen and (max-width:767px) and (min-width: 600px) {
     .search__bar--wrapper {
         width: 90%;
     }
 
     .search__bar--wrapper div {
-        padding: 0.2rem 0.9rem
+        padding: 0.2rem 0.9rem;
     }
 
     .search__bar--wrapper {
         justify-content: space-between;
-      }
-  
-      .book__in, .book__out, .guest p, .guest input{
-        display:none;
-      }
+    }
 
-    .search__bar--wrapper>div:nth-of-type(1) {
+    .guest p,
+    .guest input {
+        display: none;
+    }
+
+    .search__bar--wrapper > div:nth-of-type(1) {
         margin-left: 1rem;
     }
     .guest button {
         padding: 0.7rem;
     }
 
+  .locationInput__List {
+      left: 0px;
   }
-   
-  /* Medium screen devices (768px and above) */
-  @media only screen and (max-width:888px) and (min-width: 768px) {
+  .datePicker {
+    max-width:100%;
+  }
+  
+  .search__bar--wrapper > div:nth-of-type(1) {
+    min-width: 40%;
+    margin-left: 0;
+    padding-left: 20px;
+}
+
+  .locationInput__List {
+    width: 400px;
+  }
+
+}
+
+
+
+/* Small screen devices (600px and above) */
+@media only screen and (max-width: 767px) and (min-width: 600px) {
+    .search__bar--wrapper {
+        width: 90%;
+    }
+
+    .search__bar--wrapper div {
+        padding: 0.2rem 0.9rem;
+    }
+
+    .search__bar--wrapper {
+        justify-content: space-between;
+    }
+    .guest p,
+    .guest input {
+        display: none;
+    }
+    .locationInput__List {
+        left: 0px;
+    }
+
+    .search__bar--wrapper > div:nth-of-type(1) {
+        min-width: 40%;
+        margin-left: 0;
+        padding-left: 20px;
+    }
+    .guest button {
+        padding: 0.7rem;
+    }
+
+    .datePicker {
+      max-width:80%;
+    }
+    .guest button {
+      right: 10px;
+    }
+}
+
+/* Medium screen devices (768px and above) */
+@media only screen and (max-width: 888px) and (min-width: 768px) {
     .search__bar--wrapper {
         width: 85%;
     }
-  }
-   
-  /* Big screen devices (889px and above) */
-  @media only screen and (max-width:1199px) and (min-width: 889px) {
+}
+
+/* Big screen devices (889px and above) */
+@media only screen and (max-width: 1199px) and (min-width: 889px) {
     .search__bar--wrapper {
         width: 75%;
     }
-  }
-   
-  /* Extra big screen devices (1200px and above) */
-  @media only screen and (min-width: 1200px) {
+}
 
-  }
+/* Extra big screen devices (1200px and above) */
+@media only screen and (min-width: 1200px) {
+}
 
-
-
-
-
-
-
-
-
-
- /* For extremely small screen devices (595px and below)
+/* For extremely small screen devices (595px and below)
  @media only screen and (max-width: 595px) {
 
  }
   
  /* Small screen devices (600px and above) */
- @media only screen and (max-width:767px) and (min-width: 600px) {
+@media only screen and (max-width: 767px) and (min-width: 600px) {
+}
 
- }
-  
- /* Medium screen devices (768px and above) */
- @media only screen and (max-width:888px) and (min-width: 768px) {
+/* Medium screen devices (768px and above) */
+@media only screen and (max-width: 888px) and (min-width: 768px) {
+}
 
- }
-  
- /* Big screen devices (889px and above) */
- @media only screen and (max-width:1199px) and (min-width: 889px) {
+/* Big screen devices (889px and above) */
+@media only screen and (max-width: 1199px) and (min-width: 889px) {
+}
 
- }
-  
- /* Extra big screen devices (1200px and above) */
- @media only screen and (min-width: 1200px) {
-
- }
+/* Extra big screen devices (1200px and above) */
+@media only screen and (min-width: 1200px) {
+}
