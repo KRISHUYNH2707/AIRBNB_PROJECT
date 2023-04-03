@@ -32,6 +32,7 @@
 
 .room__image {
     padding-left: 0;
+    cursor: pointer;
 }
 
 .displayed__image {

@@ -4,3 +4,10 @@ export const setSelectedLocationReducer = (data) => {
         payload: data
     }
 }
+
+export const setFavoriateRoom = (data) => {
+    return {
+        type: 'SET_FAVORITE_ROOM',
+        payload: data
+    }
+}

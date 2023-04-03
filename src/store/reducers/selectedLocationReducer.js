@@ -3,7 +3,7 @@ const DEFAULT_STATE = {
     locationName: '',
     checkinDate: new Date(),
     checkoutDate: new Date(),
-    selectedNumGuest: 1
+    selectedNumGuest: 1,
 }
 
 export const selectedLocationReducer = (state=DEFAULT_STATE, action) => {

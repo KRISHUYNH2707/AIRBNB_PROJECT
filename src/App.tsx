@@ -14,6 +14,9 @@ function App(){
       <Routes>
         <Route path="/" element={<Home></Home>} />
         <Route path="/room-list" element={<RoomList></RoomList>} />
+
+        {/* need to verify the path and the component for the room list page when merging */}
+        {/* <Route path="/room-list/:id" element={<RoomDetail></RoomDetail>} /> */}
       </Routes>
       </BrowserRouter>
     </div>

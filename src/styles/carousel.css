@@ -269,7 +269,7 @@ input.guest__input {
     width: 85%;
 }
 .guest button {
-    padding: 0.5rem;
+    padding: 0.5rem!important;
     right:15px;
 }
 .search__bar--wrapper div {
@@ -291,6 +291,11 @@ input.guest__input {
 .book__in {
   width: 50%;
   padding: 0.2rem 1rem!important;
+}
+
+.book__in p, .places p{
+  overflow: hidden!important; 
+  white-space: nowrap!important;
 }
 
 .locationInput__List {
@@ -388,6 +393,7 @@ input.guest__input {
 .book__in p {
   visibility: hidden;
   position: relative;
+  padding: 0.2rem 1rem!important;
 }
 .book__in p:after {
   visibility: visible;
@@ -395,6 +401,8 @@ input.guest__input {
   top: 0;
   left: 0;
   content: "Nhận/Trả phòng";
+  overflow: hidden!important; 
+  white-space: nowrap!important;
 }
 
   
@@ -479,6 +487,10 @@ input.guest__input {
   .locationInput__List {
     width: 400px;
   }
+  .book__in p, .book__out p {
+    overflow: hidden!important; 
+    white-space: nowrap!important;
+  }
 
 }
 
@@ -519,6 +531,11 @@ input.guest__input {
     }
     .guest button {
       right: 10px;
+    }
+
+    .book__in p, .book__out p {
+      overflow: hidden!important; 
+      white-space: nowrap!important;
     }
 }
 

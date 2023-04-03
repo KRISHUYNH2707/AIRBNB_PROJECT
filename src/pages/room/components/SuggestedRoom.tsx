@@ -5,7 +5,9 @@ import room from "../../../assets/background.jpg";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { fetchRoomListApi } from "../../../services/roomList";
 import { formatDate } from "../../../utils";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setFavoriateRoom } from "../../../store/actions/locationInfor";
 
 
 interface Room {
@@ -34,18 +36,22 @@ interface Room {
 export default function SuggestedRoom():JSX.Element {
 
     const selectedLocationState = useSelector((state:any) => state.selectedLocationReducer);
+    // const favoriteRoomsState = useSelector((state:any) => state.favoriteRoomReducer)
+    
+    const navigate = useNavigate()
+    // const dispatch = useDispatch()
 
 
     const [roomList, setRoomList] = useState([]);
+    const [favoriteRooms, setFavoriteRooms] = useState<number[]>([]);
 
     useEffect(() => {
         fetchData()
-    },[])
+    },[selectedLocationState])
 
     const fetchData = async () => {
         const fetchedData = await fetchRoomListApi(selectedLocationState.locationID)
         setRoomList(fetchedData.data.content)
-        console.log(roomList)
     }
 
     const renderRoomList = () => {
@@ -53,7 +59,7 @@ export default function SuggestedRoom():JSX.Element {
             return (
                 <div className="room__card" key={idx}>
                 <div className="room__card-wrapper">
-                    <div className="room__image col-md-5">
+                    <div className="room__image col-md-5" onClick={() => navigate(`room/${ele.id}`)}>
                         <img
                             className='displayed__image'
                             src={ele.hinhAnh}
@@ -67,8 +73,19 @@ export default function SuggestedRoom():JSX.Element {
                                     Toàn bộ căn hộ dịch vụ tại {selectedLocationState.locationName}
                                 </p>
                                 <div className="like__botton">
-                                    <button>
-                                        <FavoriteBorderIcon></FavoriteBorderIcon>
+                                    <button onClick={() => {
+                                        setFavoriteRooms((prevRooms)  => {
+
+                                            const index = prevRooms.indexOf(ele.id);
+                                            if (index !== -1) {
+                                                return [...prevRooms.slice(0, index), ...prevRooms.slice(index + 1)];
+                                            }
+                                            else {
+                                                return [...prevRooms , ele.id]
+                                            }
+                                        })}
+                                        }>
+                                        <FavoriteBorderIcon style={{fill: favoriteRooms.includes(ele.id) ? 'red' : 'black'}}></FavoriteBorderIcon>
                                     </button>
                                 </div>
     
@@ -126,8 +143,8 @@ export default function SuggestedRoom():JSX.Element {
                             scrolling="no"
                             marginHeight={0}
                             marginWidth={0}
-                            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1%20Grafton%20Street,%20Dublin,%20Ireland+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-                        >
+                        
+                            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=ho%20chi%20minh+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
                             <a href="https://www.maps.ie/distance-area-calculator.html">
                                 measure acres/hectares on map
                             </a>

@@ -55,8 +55,91 @@
     border-radius: 21px;
     cursor: pointer;
   }
-  
 
+  .header__setting--outer {
+    position: relative;
+  }
+  
+  /* USERSIGNIN/UP */
+
+  .user__info {
+    width: 280px;;
+    position: absolute;
+    margin-top: 20px;
+    z-index: 100;
+    right: 0px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  .user__info--top {
+    border-bottom: 1px solid lightgray;
+  }
+
+  .user__signinup div {
+    padding: 0.5rem 0;
+  }
+
+  .user__signinup button {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: rgba(0, 0, 0, 0.746)
+  }
+
+  .user__signinup button:hover {
+    color: #ff385c;
+  }
+
+  .user__info--wrapper {
+    padding: 0.4rem 1rem;
+  }
+
+  .user__services ul {
+    list-style: none;
+    margin: 0;
+  }
+
+  .user__services li {
+    padding: 0.5rem 0;
+  }
+
+  .user__services a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.746)
+  }
+
+  .user__services a:hover {
+    color: #ff385c;
+  }
+
+  .user__features a {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+  }
+
+  .user__features  > .feature__item {
+    padding: 0.5rem 0;
+  }
+
+  .user__features .feature__item:hover {
+    background-color: rgba(211, 211, 211, 0.395);
+    cursor: pointer;
+  }
+
+  .user__features .feature__item:hover a {
+    color: #ff385c;
+  }
+
+  .user__features .feature__item--inner {
+    padding: 0.1rem 1rem;
+  }
+
+  .user__info--addedBottom {
+    border-top: 1px solid lightgray;
+  }
 
   /* RESPONSIVE */
    

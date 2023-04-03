@@ -15,8 +15,7 @@ import { DateRangePicker } from "react-date-range";
 import { useDispatch } from "react-redux";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { setSelectedLocationReducer } from "../../../store/actions/locationInfor";
-
-
+import { useNavigate } from "react-router-dom";
 
 interface Location {
     id: number;
@@ -42,10 +41,29 @@ function RoomListHeader() {
     const [selectedLocationID, setSelectedLocationID] = useState<number>();
     // END OF STATE
 
+    // handle open and close user menu
+    const [settingMenu, setSettingMenu] = useState<boolean>(false);
+    const userMenuRef = useRef<any>()
+    useEffect(() => {
+        document.addEventListener("mousedown", (event) => {
+            if (!userMenuRef.current.contains(event.target)) {
+                setSettingMenu(false)
+            }
+            if (!userMenuRef.current.contains(event.target)) {
+                setSettingMenu(false)
+            }
+        })
+    })
+
+    const navigate = useNavigate();
+
     // GET LOCATION AND BOOKING DETAILS FROM STATE
     const selectedLocationState = useSelector(
         (state: any) => state.selectedLocationReducer
     );
+
+    //TODO - NEED TO CHANGE THE CORRECT REDUCER WHEN MERGING
+    const userDetailState = useSelector((state:any) => state.selectedLocationReducer)
     // END OF GETTING LOCATION AND BOOKING DETAILS
 
     // HANDLE SELECTING DATE
@@ -95,8 +113,6 @@ function RoomListHeader() {
 
     // END OF MOUSE CLICKING CHECK
 
-
-
     const getLocationList = async () => {
         const result = await fetchLocationApi();
         setSuggestedLocations(result.data.content);
@@ -127,7 +143,8 @@ function RoomListHeader() {
             border: 'none',
             padding: '0.2rem 0 0 0',
             textAlign: 'center',
-            fontSize: '1rem'
+            fontSize: '1rem',
+            maxWidth: '100%'
         }
     };
 
@@ -145,7 +162,7 @@ function RoomListHeader() {
                                 alt=""
                             />
                         </div>
-                        <div style={{ lineHeight: "80px" }}>
+                        <div className={styles.location__desc}>
                             <button
                                 onClick={() => {
                                     setSelectedLocation(
@@ -154,7 +171,7 @@ function RoomListHeader() {
                                     setSelectedLocationID(ele.id);
                                 }}
                             >
-                                <p className="text-black">
+                                <p className={styles.location__text}>
                                     {ele.tenViTri}, {ele.tinhThanh},{" "}
                                     {ele.quocGia}
                                 </p>
@@ -221,17 +238,22 @@ function RoomListHeader() {
                             value={numGuest.toLocaleString() + ' khách'}
                             onFocus={()=>setDatePickerOnClick(true)}
                             style={inlineStyles.inputField}
+                            className={styles.numGuest__text}
                         />
 
                             <div>
                                 <button onClick={() => {
+                                    
                                     dispatch(setSelectedLocationReducer({
                                         selectedLocationID,
                                         selectedLocation,
                                         startDate,
                                         endDate,
                                         numGuest
-                                    }))
+                                    }
+                                    ))
+
+                                    
                                     
                                 }}>
                                     <BsSearch></BsSearch>
@@ -252,21 +274,123 @@ function RoomListHeader() {
                     <TbWorld
                         style={{ fontSize: "1.5rem", color: "black" }}
                     ></TbWorld>
-                    <div className="header__setting">
-                        <BiMenu
-                            style={{ fontSize: "1.5rem", color: "black" }}
-                        ></BiMenu>
-                        <HiUserCircle
-                            style={{ fontSize: "1.5rem", color: "black" }}
-                        ></HiUserCircle>
+                                        <div
+                        className="header__setting--outer"
+                        ref={userMenuRef}
+                        onClick={() => setSettingMenu(!settingMenu)}
+                    >
+                        <div className="header__setting">
+                            <BiMenu
+                                style={{ fontSize: "1.5rem", color: "black" }}
+                            ></BiMenu>
+                            <HiUserCircle
+                                style={{ fontSize: "1.5rem", color: "black" }}
+                            ></HiUserCircle>
+                        </div>
+                        {settingMenu && (
+                            <div className="user__info">
+                                <div className="user__info--top">
+                                    {/* //TODO - CHANGE TO THE CORRECT ATTRIBUTE, NOT LOCATIONAME WHEN MERGING */}
+                                    {userDetailState.locationName == '' 
+                                    ?(
+                                        <div className="user__info--wrapper">
+                                                                        <div className="user__signinup">
+                                                                            <div className="user__signin">
+                                                                                <button
+                                                                                    onClick={() =>
+                                                                                        navigate("/sign-in")
+                                                                                    }
+                                                                                >
+                                                                                    Đăng nhập
+                                                                                </button>
+                                                                            </div>
+                                                                            <div className="user__signup">
+                                                                                <button
+                                                                                    onClick={() =>
+                                                                                        navigate("/sign-up")
+                                                                                    }
+                                                                                >
+                                                                                    Đăng ký
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                        </div>)
+                                    :
+                                    <div className="user__features">
+                                    <div className="feature__item">
+                                        <div className="feature__item--inner">
+                                            <a href="">Tin nhắn</a>
+                                        </div>
+                                    </div>
+                                    <div className="feature__item">
+                                        <div className="feature__item--inner">
+                                            <a href="">Thông báo</a>
+                                        </div>
+                                    </div>
+                                    <div className="feature__item">
+                                        <div className="feature__item--inner">
+                                            <a href="">Chuyến đi</a>
+                                        </div>
+                                    </div>
+                                    <div className="feature__item">
+                                        <div className="feature__item--inner">
+                                            <a href="">Yêu thích</a>
+                                        </div>
+                                    </div>
+                                </div>}
+
+
+                                </div>
+
+                                <div className="user__info--wrapper">
+                                    <div className="user__info--bottom">
+                                    <div className="user__services">
+                                        <ul>
+                                            <li>
+                                                <a href="">Trải nghiệm</a>
+                                            </li>
+                                            <li>
+                                                <a href="">
+                                                    Trở thành host
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="">{userDetailState.locationName == '' ? 'Trợ giúp' : 'Tài khoản'}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+
+                                
+                                </div>
+                                {userDetailState.locationName !== '' 
+                                &&
+                                <div className="user__info--addedBottom">
+                                <div className="user__info--wrapper">
+                                    <div className="user__services">
+                                        <ul>
+                                            <li>
+                                                <a href="">Trợ giúp</a>
+                                            </li>
+                                            <li>
+                                                <a href="">Đăng xuất</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>} 
+
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
             {locationInputOnClick && (
                 <div
                     ref={locationRef}
-                    className=""
                     style={inlineStyles.locationInput__List}
+                    className={styles.locationList__wrapper}
                 >
                     {renderLocationList()}
                 </div>

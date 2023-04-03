@@ -60,7 +60,7 @@
 }
 
 .searchbar__room__wrapper {
-    max-width: 100%;
+    max-width: fit-content;
     background: white;
     box-shadow: 0 0 5px hsl(0 0% 78%);
     height: 58px;
@@ -73,7 +73,7 @@
 
 .searchbar__room__wrapper div {
     border-radius: inherit;
-    padding: 0.2rem 1.5rem;
+    padding: 0.2rem 0.5rem;
     transition: background 250ms ease;
     line-height: 58px;
 }
@@ -136,9 +136,12 @@
 background:transparent;
 }
 
-/* RESPONSIVE */
+.location__desc {
+    line-height: 80px;
+}
 
-@media only screen and (max-width:524px) and (min-width: 330px) {
+/* RESPONSIVE */
+@media only screen and (max-width:400px) {
     .nav__right, .nav__left{
         display: none;
     }
@@ -159,11 +162,155 @@ background:transparent;
     .searchbar__room__wrapper {
         height: 45px;
     }
+
+    input {
+        width: 100%;
+        font-size: 0.8rem!important;
+    }
+
+
+    .room__guest input {
+        text-align: left!important;
+        margin-left: 0px;
+    }
+
+    .room__guest {
+        padding-right: 0rem!important;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(1) {
+        width:130px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(2) {
+        width: 120px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(3) {
+        width: 25px;
+    }
+
+    .searchbar__room__wrapper div{
+        line-height: 44px;
+    }
+
+    .header > div:nth-of-type(2) {
+        margin-right: 0px!important;
+        font-size: 0.9rem;
+        width: 95vw!important;
+    }
+
+    .room__guest button {
+        padding: 0.5rem;
+    }
+
+    .room__guest div {
+        padding: 0rem;
+    }
+
+    .location__text {
+        overflow: hidden!important; 
+        white-space: nowrap!important;
+    }
+
+    .introLocation__image {
+        height: 60px;
+        width: 60px;
+    }
+
+    .locationInput__item--wrapper {
+        height: 50px;
+    }
+
+    .location__desc {
+        line-height: 60px;
+    }
+
+    .numGuest__text {
+        display: none!important;
+    }
+    .locationList__wrapper {
+        margin-top: 0px!important;
+    }
+
+}
+
+@media only screen and (max-width:524px) and (min-width: 401px) {
+    .nav__right, .nav__left{
+        display: none;
+    }
+
+    .header__wrapper {
+        justify-content: center;
+    }
+
+    .searchbar__room__wrapper div {
+        padding: 0.2rem 1.2rem;
+        line-height: 20px;
+    }
+
+    .searchbar__room__wrapper>div:nth-of-type(1)>p {
+        overflow: hidden;
+    }
+
+    .searchbar__room__wrapper {
+        height: 45px;
+    }
+
+    input {
+        width: 100%;
+        font-size: 0.8rem!important;
+    }
+
+
+    .room__guest input {
+        text-align: left!important;
+        margin-left: 0px;
+    }
+
+    .room__guest {
+        padding-right: 0rem!important;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(1) {
+        width:130px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(2) {
+        width: 120px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(3) {
+        width: 140px;
+    }
+
+    .searchbar__room__wrapper div{
+        line-height: 44px;
+    }
+
+    .header > div:nth-of-type(2) {
+        margin-right: 0px!important;
+        font-size: 0.9rem;
+        width: 355px!important;
+    }
+
+    .room__guest button {
+        padding: 0.5rem;
+    }
+
+    .room__guest div {
+        padding: 0rem;
+    }
+
+    .location__text {
+        overflow: hidden!important; 
+        white-space: nowrap!important;
+    }
 }
 
 
 /* For extremely small screen devices (595px and below)  */
-@media only screen and (max-width: 595px) and (min-width: 525px) {
+@media only screen and (max-width: 594px) and (min-width: 525px) {
     .nav__right, .nav__left{
         display: none;
     }
@@ -180,6 +327,11 @@ background:transparent;
         padding: 0.2rem 1.5rem;
     }
 
+    .searchbar__room__wrapper div:nth-of-type(3) {
+        padding: 0.2rem 0.5rem!important;
+    }
+
+
     .searchbar__room__wrapper>div:nth-of-type(1)>p {
         overflow: hidden;
     }
@@ -188,17 +340,70 @@ background:transparent;
         overflow: hidden;
     }
 
+    input {
+        width: 100%;
+        font-size: 0.9rem!important;
+    }
+
+
+    .room__guest input {
+        text-align: left!important;
+        margin-left: 10px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(1) {
+        width:150px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(2) {
+        width: 150px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(3) {
+        width: 170px;
+    }
+    .header > div:nth-of-type(2) {
+        margin-right: 0px!important;
+        font-size: 0.9rem;
+        width: 430px;
+    }
+
 
  }
   
  /* Small screen devices (600px and above) */
- @media only screen and (max-width:767px) and (min-width: 594px) {
+ @media only screen and (max-width:767px) and (min-width: 595px) {
     .nav__right, .nav__left{
         display: none;
     }
 
     .header__wrapper {
         justify-content: center;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    .room__guest input {
+        text-align: left!important;
+        margin-left: 10px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(1) {
+        width:200px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(2) {
+        width: 130px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(3) {
+        width: 200px;
+    }
+
+    .header > div:nth-of-type(2) {
+        margin-right: 0px!important;
     }
 
  }
@@ -220,11 +425,40 @@ background:transparent;
         height: 30px;
         object-fit: contain;
     }
+
+    input {
+        width: 100%;
+    }
+
+    .room__guest input {
+        text-align: left!important;
+        margin-left: 10px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(1) {
+        width:200px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(2) {
+        width: 130px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(3) {
+        width: 200px;
+    }
  }
   
  /* Big screen devices (889px and above) */
  @media only screen and (max-width:1041px) and (min-width: 889px) {
     
+    .header > div:nth-of-type(2){
+        margin-right:50%;
+    }
+
+    .rdrDateRangePickerWrapper {
+        border-top: none;
+    }
+
     .nav__right{
         display: none;
     }
@@ -241,9 +475,32 @@ background:transparent;
         object-fit: contain;
     }
 
+
+
  }
   
  /* Extra big screen devices (1200px and above) */
- @media only screen and (min-width: 1041px) {
+ @media only screen and (min-width: 1042px) {
+    input {
+        width: 100%;
+    }
+
+    .room__guest input {
+        text-align: left!important;
+        margin-left: 10px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(1) {
+        width:250px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(2) {
+        width: 130px;
+    }
+
+    .searchbar__room__wrapper div:nth-of-type(3) {
+        width: 200px;
+    }
+
 
  }
