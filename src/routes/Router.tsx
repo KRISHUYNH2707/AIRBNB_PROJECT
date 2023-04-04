@@ -16,6 +16,8 @@ import UserManagement from "pages/user-management/UserManagement";
 import RoomForm from "pages/room-form/RoomForm";
 import Home from "pages/home/Home";
 import RoomList from "pages/room/RoomList";
+import Register from "pages/home/register/Register";
+import Detail from "pages/home/Detail/Detail";
 
 export default function Router(): React.ReactElement<any> | null {
   //path
@@ -32,12 +34,20 @@ export default function Router(): React.ReactElement<any> | null {
       element: <RoomList />,
     },
     {
+      path: "/room-detail/:roomId",
+      element: <Detail />,
+    },
+    {
       path: "/",
       element: <NoAuthGuard />,
       children: [
         {
           path: "/login",
           element: <Login />,
+        },
+        {
+          path: "/register",
+          element: <Register />,
         },
       ],
     },
