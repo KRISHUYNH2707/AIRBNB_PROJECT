@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../styles/carousel.css"
+import "../styles/carousel.scss"
 import { BsSearch } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import "react-date-range/dist/styles.css"; // main style file

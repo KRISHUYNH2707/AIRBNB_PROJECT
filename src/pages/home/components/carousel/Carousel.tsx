@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import carousel from "../../../../assets/carousel1.jpeg";
-import "../../../../styles/carousel.css";
+import "../../../../styles/carousel.scss";
 import { BsSearch } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import "react-date-range/dist/styles.css"; // main style file

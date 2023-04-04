@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../../../styles/places.css";
+import "../../../../styles/places.scss";
 import fullHouse from "../../../../assets/fullHouse.jpg";
 import oldHouse from "../../../../assets/oldHouse.jpg";
 import greenHouse from "../../../../assets/greenHouse.jpg";

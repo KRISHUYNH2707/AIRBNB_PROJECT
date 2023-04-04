@@ -21,7 +21,8 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.2",
     "react-scripts": "^5.0.1",
-    "redux": "^4.2.1"
+    "redux": "^4.2.1",
+    "sass": "^1.60.0"
   },
   "scripts": {
     "start": "react-scripts start",

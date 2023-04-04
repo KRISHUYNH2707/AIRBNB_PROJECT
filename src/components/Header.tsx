@@ -4,7 +4,7 @@ import { TbWorld } from "react-icons/tb";
 import { BiMenu } from "react-icons/bi";
 import { HiUserCircle } from "react-icons/hi";
 import background from "../assets/background.jpg";
-import "../styles/header.css";
+import "../styles/header.scss";
 import { fetchLocationApi } from "../services/location";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";

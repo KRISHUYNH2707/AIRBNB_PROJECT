@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
-import "../../../styles/roomSearch.css";
+import "../../../styles/roomSearch.scss";
 import room from "../../../assets/background.jpg";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { fetchRoomListApi } from "../../../services/roomList";
