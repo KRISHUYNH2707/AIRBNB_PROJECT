@@ -79,12 +79,12 @@ export default function Header(): JSX.Element {
                     <div className="user__info--wrapper">
                       <div className="user__signinup">
                         <div className="user__signin">
-                          <button onClick={() => navigate("/sign-in")}>
+                          <button onClick={() => navigate("/login")}>
                             Đăng nhập
                           </button>
                         </div>
                         <div className="user__signup">
-                          <button onClick={() => navigate("/sign-up")}>
+                          <button onClick={() => navigate("/register")}>
                             Đăng ký
                           </button>
                         </div>
