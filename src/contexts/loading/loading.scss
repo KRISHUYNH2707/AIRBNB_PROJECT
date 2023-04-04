@@ -1,0 +1,38 @@
+.filter {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+}
+
+.spin {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.spin:before,
+.spin:after {
+  content: "";
+  border-radius: 50%;
+  position: absolute;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3) inset;
+  inset: 0;
+}
+.spin:after {
+  box-shadow: 0 2px 0 #ff3d00 inset;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

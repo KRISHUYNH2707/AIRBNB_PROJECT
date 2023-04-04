@@ -66,7 +66,7 @@ export const fetchLocationSearchListApiAction = createAsyncThunk(
   "locationReducer/fetchLocationSearchListApiAction",
   async (search: { page: number; size: number; keyword: string }) => {
     const { size, page, keyword } = search;
-    if (size) {
+    if (size !== 0) {
       const result = await fetchLocationSearchListApi(page, size, keyword);
       return result.data.content;
     }
