@@ -16,14 +16,6 @@ import {
 import { fetchLocationListApi } from "services/location";
 import { RootDispatch, RootState } from "store/config";
 
-interface Location {
-  id: number;
-  tenViTri: string;
-  tinhThanh: string;
-  quocGia: string;
-  hinhAnh: string;
-}
-
 function Carousel(): JSX.Element {
   // STATE
   //   const [suggestedLocations, setSuggestedLocations] = useState([]); // cái này là gì á anh. // chờ em xíu
@@ -65,7 +57,7 @@ function Carousel(): JSX.Element {
       if (!locationRef.current.contains(event.target)) {
         setLocationInputOnClick(false);
       }
-      if (!datePickerRef.current.contains(event.target)) {
+      if (!datePickerRef?.current?.contains(event.target)) {
         setDatePickerOnClick(false);
       }
     });
@@ -73,7 +65,7 @@ function Carousel(): JSX.Element {
 
   useEffect(() => {
     document.addEventListener("mousedown", (event) => {
-      if (!datePickerRef.current.contains(event.target)) {
+      if (!datePickerRef?.current?.contains(event.target)) {
         setDatePickerOnClick(false);
       }
     });
@@ -82,12 +74,12 @@ function Carousel(): JSX.Element {
   const getLocationList = async () => {
     const result = await dispatch(
       fetchLocationSearchListApiAction({ page: 1, size: 12, keyword: "" })
-    ); // xíu nữa anh xem phần nào không cần là được á anh
+    );
     // setSuggestedLocations(result.data.content);
   };
 
   const renderLocationList = () => {
-    return locationState?.map((ele: Location, idx) => {
+    return locationState?.map((ele, idx) => {
       return (
         <div className="locationInput__item" key={idx}>
           <div className="locationInput__item--wrapper d-flex">
@@ -126,9 +118,7 @@ function Carousel(): JSX.Element {
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
-  });
-
-  console.log(windowSize);
+  }, []);
 
   return (
     <div className="carousel">
