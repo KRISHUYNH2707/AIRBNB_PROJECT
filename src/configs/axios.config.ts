@@ -1,7 +1,7 @@
-import { LoginDto } from "./../interfaces/login";
+import { LoginDto } from "interfaces/login";
 import axios from "axios";
 import { BASE_URL, TOKEN_CYBERSOFT } from "../constants";
-import { Users } from "interfaces/user";
+import { Users } from "interfaces/user"; // anh đổi url
 
 const axiosRequest = axios.create({
   baseURL: BASE_URL,
@@ -27,3 +27,6 @@ axiosRequest.interceptors.request.use((config) => {
 export { axiosRequest };
 
 // lớp đối tượng instant
+
+// anh copy file này thay cho file kia rồi còn 1 số cái ở phần khác em xem lại rồi chỉ anh fix
+// okay em

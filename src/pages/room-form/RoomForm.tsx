@@ -75,7 +75,7 @@ export default function RoomForm(): JSX.Element {
     moTa,
     giaTien,
     maViTri,
-  } = roomInfoState; // update
+  } = roomInfoState;
   console.log(roomInfoState);
 
   useEffect(() => {
@@ -104,25 +104,17 @@ export default function RoomForm(): JSX.Element {
   }, [roomInfoState]);
 
   const handleGetRoomApi = async (roomId: string) => {
-    try {
-      setLoading({ isLoading: true });
-      const result = await dispatch(fetchGetRoomApi(roomId));
-      setLoading({ isLoading: false });
-    } catch ({ response }) {
-      console.log(response);
-    }
+    setLoading({ isLoading: true });
+    await dispatch(fetchGetRoomApi(roomId));
+    setLoading({ isLoading: false });
   };
 
   const handleFetchLocationListApi = async () => {
-    try {
-      setLoading({ isLoading: true });
-      const result = await fetchLocationListApi();
+    setLoading({ isLoading: true });
+    const result = await fetchLocationListApi();
 
-      setLocation(result.data.content);
-      setLoading({ isLoading: false });
-    } catch ({ response }) {
-      console.log(response);
-    }
+    setLocation(result.data.content);
+    setLoading({ isLoading: false });
   };
 
   const renderLocationList = (): JSX.Element[] | undefined => {

@@ -2,9 +2,9 @@ import { Tooltip } from "antd";
 import { LoadingContext } from "contexts/loading/LoadingContext";
 
 import React, { useEffect, useContext, useState, useMemo } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { RootDispatch } from "store/config";
+import { RootDispatch, RootState } from "store/config";
 import { fetchLocationSearchListApiAction } from "store/reducers/locationReducer";
 import { FormOutlined } from "@ant-design/icons";
 
@@ -16,6 +16,12 @@ const { ADMIN, LOCATION, CREATE, UPDATE } = PathAdmin;
 
 export default function LocationDataInformation(): JSX.Element {
   const [arrow] = useState("Show");
+
+  const locationState = useSelector(
+    (state: RootState) => state.locationReducer.locationInfo
+  );
+
+  console.log(locationState);
 
   const dispatch = useDispatch<RootDispatch>();
 

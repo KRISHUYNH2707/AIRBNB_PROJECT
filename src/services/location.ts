@@ -18,8 +18,8 @@ export const fetchLocationListApi = (): AxiosPromise<
 };
 
 export const fetchLocationSearchListApi = (
-  page: number,
-  pageSize: number,
+  page: number = 1,
+  pageSize: number = 12,
   keyword: string = ""
 ): AxiosPromise<HttpResponse<Content<LocationsDto>>> => {
   return axiosRequest({
@@ -63,7 +63,6 @@ export const uploadImageLocationApi = (
   locationId: number,
   information: FormData
 ): AxiosPromise<HttpResponse<LocationsDto>> => {
-  // dạ đây nè anh
   return axiosRequest({
     url: `/vi-tri/upload-hinh-vitri?maViTri=${locationId}`,
     method: POST,

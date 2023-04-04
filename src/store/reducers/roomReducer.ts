@@ -16,9 +16,9 @@ export interface RoomState {
 }
 
 const DEFAULT_STATE = {
-  roomInfo: {},
+  roomInfo: {}, // khi update no moi them vao kieu nay  // lấy thẳng từ cái này thêm vào nè // lấy từ đó nên là number// ú kì, mà ôg làm lạ ha đặt tên đồ qtr// sau khi ông nhìn lại còn có tên mà biết không sau fix lại không biết chỗ nào mà fix ấy mà.
   roomList: {
-    pageIndex: 1,
+    pageIndex: 1, // đây là phần phân trang nè
     pageSize: 2,
     totalRow: 10,
     keywords: "",
@@ -45,6 +45,7 @@ export const fetchRoomListApiAction = createAsyncThunk(
 export const fetchGetRoomApi = createAsyncThunk(
   "roomReducer/fetchGetRoomApi",
   async (id: string) => {
+    //sao cái id là string nhỉ //vì lấy từ params nên mặc định là string xét thành number được nhưng tui chưa fix :V// cái dưới lại là number // vì cái dưới không lấy từ params mà lấy từ dataRoom có sẵn là số.
     const result = await getRoomApi(id);
     return result.data.content;
   }
@@ -99,7 +100,7 @@ const roomSlice = createSlice({
       });
     });
     builder.addCase(
-      fetchGetRoomApi.fulfilled,
+      fetchGetRoomApi.fulfilled, // cái này xài cho việc update // khi nào cần mình mới thêm vào kiểu v .// này
       (state: RoomState, action: PayloadAction<RoomsDto>) => {
         state.roomInfo = action.payload;
       }
