@@ -17,7 +17,10 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { setSelectedLocationReducer } from "../../../store/actions/locationInfor";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "store/config";
-
+// em push lên rồi anh soi dùm em phần nào lỗi rồi anh nói cho em em ngồi fix tiếp vì anh làm nhiều phần em chưa biết owr đoạn nào //
+// Ui thì gánh thêm tí thôi logic em làm quen phần nào rồi nên dễ .
+// anh merge vào đã mới pull về được.
+// Khỏi lo anh chắc chắn còn lỗi
 interface Location {
   id: number;
   tenViTri: string;
@@ -30,8 +33,11 @@ function RoomListHeader() {
   const dispatch = useDispatch();
 
   // STATE
-  const [suggestedLocations, setSuggestedLocations] = useState([]);
-  const [locationInputOnClick, setlocationInputOnClick] =
+  // dạ
+  const suggestedLocations = useSelector(
+    (state: RootState) => state.locationReducer.locationList.data
+  );
+  const [locationInputOnClick, setLocationInputOnClick] =
     useState<boolean>(false);
   const [datePickerOnClick, setDatePickerOnClick] = useState<boolean>(false);
   const [startDate, setStartDate] = useState(new Date());
@@ -105,7 +111,7 @@ function RoomListHeader() {
   useEffect(() => {
     document.addEventListener("mousedown", (event) => {
       if (!locationRef.current.contains(event.target)) {
-        setlocationInputOnClick(false);
+        setLocationInputOnClick(false);
       }
       if (!datePickerRef.current.contains(event.target)) {
         setDatePickerOnClick(false);
@@ -161,7 +167,7 @@ function RoomListHeader() {
   // END OF INLINE STYLES
 
   const renderLocationList = () => {
-    return suggestedLocations.map((ele: Location, idx) => {
+    return suggestedLocations.map((ele, idx) => {
       return (
         <div className="locationInput__item" key={idx}>
           <div className="locationInput__item--wrapper d-flex">
@@ -186,6 +192,8 @@ function RoomListHeader() {
     });
   };
 
+  // mẻ
+
   return (
     <div className={styles.header}>
       <div className={styles.header__wrapper}>
@@ -203,7 +211,7 @@ function RoomListHeader() {
                 value={selectedLocation}
                 className=""
                 onFocus={() => {
-                  setlocationInputOnClick(true);
+                  setLocationInputOnClick(true);
                 }}
                 style={inlineStyles.inputField}
               />
