@@ -1,0 +1,49 @@
+#components-layout-demo-custom-trigger .trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: #1890ff;
+}
+
+#components-layout-demo-custom-trigger .logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+th.ant-table-cell {
+  font-size: 1rem;
+  text-align: center !important;
+  font-weight: bolder !important;
+  color: rgb(255 255 255 / 88%) !important;
+  background: #086788 !important;
+}
+.form-main {
+  border-radius: 2.3rem;
+  overflow: hidden;
+  padding: 0px 0px !important;
+  border: 0.5px dashed #086788 !important;
+  .title-admin {
+    background-color: #086788 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #fff;
+    }
+  }
+}
+
+.ant-menu-item {
+  display: flex !important;
+  // justify-content: center !important;
+  // align-items: center !important;
+  // padding: 0 !important;
+}

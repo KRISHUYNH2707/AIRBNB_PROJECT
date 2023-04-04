@@ -3,34 +3,13 @@ import { Button } from "@material-ui/core";
 import "../../../styles/roomSearch.scss";
 import room from "../../../assets/background.jpg";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { fetchRoomListApi } from "../../../services/roomList";
 import { formatDate } from "../../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFavoriateRoom } from "../../../store/actions/locationInfor";
 import { RootState } from "store/config";
-
-interface Room {
-  banLa: boolean;
-  banUi: boolean;
-  bep: boolean;
-  dieuHoa: boolean;
-  doXe: boolean;
-  giaTien: number;
-  giuong: number;
-  hinhAnh: string;
-  hoBoi: boolean;
-  id: number;
-  khach: string;
-  maViTri: number;
-  mayGiat: boolean;
-  moTa: string;
-  phongNgu: number;
-  phongTam: number;
-  tenPhong: string;
-  tivi: boolean;
-  wifi: boolean;
-}
+import { fetchRoomListByLocationApi } from "services/room";
+import { RoomsDto } from "interfaces/room";
 
 export default function SuggestedRoom(): JSX.Element {
   const selectedLocationState = useSelector(
@@ -41,7 +20,7 @@ export default function SuggestedRoom(): JSX.Element {
   const navigate = useNavigate();
   // const dispatch = useDispatch()
 
-  const [roomList, setRoomList] = useState([]);
+  const [roomList, setRoomList] = useState<RoomsDto[]>([]);
   const [favoriteRooms, setFavoriteRooms] = useState<number[]>([]);
 
   useEffect(() => {
@@ -49,14 +28,14 @@ export default function SuggestedRoom(): JSX.Element {
   }, [selectedLocationState]);
 
   const fetchData = async () => {
-    const fetchedData = await fetchRoomListApi(
+    const fetchedData = await fetchRoomListByLocationApi(
       selectedLocationState.locationID
     );
     setRoomList(fetchedData.data.content);
   };
 
   const renderRoomList = () => {
-    return roomList.map((ele: Room, idx: number) => {
+    return roomList.map((ele, idx) => {
       return (
         <div className="room__card" key={idx}>
           <div className="room__card-wrapper">

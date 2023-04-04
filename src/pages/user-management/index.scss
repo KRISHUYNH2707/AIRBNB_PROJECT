@@ -1,0 +1,13 @@
+@import "../../styles/mixins";
+
+.update-icon {
+  @include icon(1.3rem, 0.3rem, rgb(40, 167, 69), rgb(3, 230, 56));
+}
+
+.remove-icon {
+  @include icon(1.3rem, 0.3rem, rgb(220, 53, 69), rgb(247, 5, 29));
+}
+
+.add-icon {
+  @include icon(1.6rem, 0.3rem, rgb(0, 123, 255), rgba(57, 148, 245, 0.911));
+}

@@ -11,26 +11,24 @@
 //   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 // );
 
-// import { commentReducer } from "./reducers/commentReducer";
-// import { roomReservationReducer } from "./reducers/roomReservationReducer";
-// import { roomReducer } from "./reducers/roomReducer";
-// import { addressReducer } from "./reducers/addressReducer";
+import { roomReservationReducer } from "./reducers/roomReservationReducer";
+import { roomReducer } from "./reducers/roomReducer";
+import { addressReducer } from "./reducers/addressReducer";
 import { AnyAction, combineReducers, configureStore } from "@reduxjs/toolkit";
 import thunk, { ThunkDispatch } from "redux-thunk";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-// import { loginReducer } from "./reducers/loginReducer";
-// import { userReducer } from "./reducers/userReducer";
+import { loginReducer } from "./reducers/loginReducer";
+import { userReducer } from "./reducers/userReducer";
 import { locationReducer } from "./reducers/locationReducer";
 
 const rootReducer = combineReducers({
-  // loginReducer: loginReducer,
-  // userReducer: userReducer,
+  loginReducer: loginReducer,
+  userReducer: userReducer,
   locationReducer: locationReducer,
-  // addressReducer: addressReducer,
-  // roomReducer: roomReducer,
-  // roomReservationReducer: roomReservationReducer,
-  // commentReducer: commentReducer,
+  addressReducer: addressReducer,
+  roomReducer: roomReducer,
+  roomReservationReducer: roomReservationReducer,
 });
 
 export const store = configureStore({
