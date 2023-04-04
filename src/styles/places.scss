@@ -1,0 +1,108 @@
+.locations {
+    padding-bottom: 15px;
+    }
+    
+    .locations__wrapper{
+        max-width: 80%;
+        margin: auto;
+    }
+    
+    .location__card{
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    
+    }
+    
+    .location__image {
+        border-radius: 15px;
+    }
+    
+    .card__right h2 {
+        font-size: 16px;
+    }
+    
+    .card__right h3 {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.619);
+    }
+    
+    .location__details--wrapper {
+        overflow: auto;
+        overflow-y: hidden;
+    
+    }
+    
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+        height: 7px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background-color: #ebebeb;
+        -webkit-border-radius: 10px;
+        border-radius: 20px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 10px;
+        border-radius: 20px;
+        background: #6d6d6d;
+    }
+    
+    
+    .detail__card {
+        margin-right: 20px;
+    }
+    
+    .detail__card p {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+    
+    .detail__card img{
+        border-radius: 15px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+    @media only screen and (max-width: 410px) {
+        .suggested__nearbyLocation > h2, .location__details > h2{
+            font-size: 1.3rem;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        .card__right h2 {
+            font-size: 1rem
+        }
+    }
+    
+    /* For extremely small screen devices (595px and below)  */
+     @media only screen and (max-width: 595px) and (min-width: 411px) {
+        .suggested__nearbyLocation > h2,  .location__details > h2{
+            font-size: 1.3rem;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+     }
+      
+     /* Small screen devices (600px and above) */
+     @media only screen and (max-width:767px) and (min-width: 600px) {
+        .suggested__nearbyLocation > h2,  .location__details > h2{
+            font-size: 1.5rem;
+        }
+     }
+      
+     /* Medium screen devices (768px and above) */
+     @media only screen and (max-width:888px) and (min-width: 768px) {
+    
+     }
+      
+     /* Big screen devices (889px and above) */
+     @media only screen and (max-width:1199px) and (min-width: 889px) {
+    
+     }
+      
+     /* Extra big screen devices (1200px and above) */
+     @media only screen and (min-width: 1200px) {
+    
+     }
