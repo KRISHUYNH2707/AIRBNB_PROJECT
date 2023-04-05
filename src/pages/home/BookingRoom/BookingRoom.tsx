@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./bookingroom.scss";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
@@ -6,23 +6,36 @@ import "react-date-range/dist/theme/default.css";
 import moment from "moment";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Modal, notification } from "antd";
 import { RootDispatch, RootState } from "store/config";
 import { BookingDto } from "interfaces/booking";
+import { getRoomApi } from "services/room";
+import { fetchBookingListAction } from "store/reducers/bookingReducer";
 
 export default function BookingRoom() {
-  const user = useSelector((state: RootState) => state.loginReducer);
+  const user = useSelector((state: RootState) => state.loginReducer); // sai nua nay ong
   const [inputFocus, setInputFocus] = useState(false);
-  const [checkInDate, setCheckInDate] = useState(new Date());
-  const [checkOutDate, setCheckOutDate] = useState(new Date());
+  const [ngayDen, setNgayDen] = useState(new Date());
+  const [ngayDi, setNgayDi] = useState(new Date());
   const [guest, setGuest] = useState<number>(0);
   const dispatch = useDispatch<RootDispatch>();
   const navigate = useNavigate();
   const createRandomNumber = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min)) + min;
   };
+  const [roomDetail, setRoomDetail]: any = useState({});
+  const params = useParams();
+  useEffect(() => {
+    getRoomDetail();
+  }, []);
 
+  const getRoomDetail = async () => {
+    if (params.roomId) {
+      const result = await getRoomApi(params.roomId);
+      setRoomDetail(result.data.content);
+    }
+  };
   const openDatePicker = () => {
     setInputFocus(true);
   };
@@ -31,12 +44,12 @@ export default function BookingRoom() {
   };
 
   const handleSelect = (ranges: any) => {
-    setCheckInDate(ranges.selection.startDate);
-    setCheckOutDate(ranges.selection.endDate);
+    setNgayDen(ranges.selection.startDate);
+    setNgayDi(ranges.selection.endDate);
   };
   const selectionRange = {
-    startDate: checkInDate,
-    endDate: checkOutDate,
+    startDate: ngayDen,
+    endDate: ngayDi,
     key: "selection",
   };
 
@@ -47,22 +60,23 @@ export default function BookingRoom() {
     onChange: handleSelect,
   };
   const get_day_of_time = (d1: Date, d2: Date) => {
+    // đặt tên theo Camel key đi ông
     let ms1 = d1.getTime();
     let ms2 = d2.getTime();
     return Math.ceil((ms2 - ms1) / (24 * 60 * 60 * 1000));
   };
-
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const data: BookingDto = {
       id: 0,
-      ngayDen: e.checkInDate,
-      ngayDi: e.checkOutDate,
+      ngayDen: e.ngayDen,
+      ngayDi: e.ngayDi ,
       maPhong: 0,
       soLuongKhach: 1,
       maNguoiDung: 1,
     };
     if (user.token !== "") {
+      // cais nayf laf cais j layas o dau a
       Swal.fire({
         icon: "warning",
         text: "Bạn có chắc chắn đặt phòng không!",
@@ -72,11 +86,11 @@ export default function BookingRoom() {
         cancelButtonColor: "#d33",
       }).then((result) => {
         if (result.isConfirmed) {
-          const dataPost = {
-            id: 0,
+          const dataPost:any = {
+            id: roomDetail.id,
             information: data,
           };
-          console.log(dataPost);
+           dispatch(fetchBookingListAction(dataPost))
         }
       });
     } else {
@@ -89,7 +103,7 @@ export default function BookingRoom() {
         cancelButtonColor: "#d33",
       }).then((result) => {
         notification.warning({
-          message: "vui long dang nhap",
+          message: "Vui lòng đăng nhập",
         });
         navigate("/login");
       });
@@ -103,10 +117,8 @@ export default function BookingRoom() {
         <div className="d-flex justify-content-between align-items-center mb-4 pt-4">
           <div>
             <span>$ </span>
-            <span className="font-weight-bold ">
-              {/* {roomDetail?.price} */} 100000
-            </span>
-            <span className="text-base"> đêm</span>
+            <span className="font-weight-bold ">{roomDetail?.giaTien} </span>
+            <span className="text-base">/1 đêm</span>
           </div>
           <div>
             <span className="">
@@ -136,13 +148,13 @@ export default function BookingRoom() {
             <div className="border-right border-secondary rounded-tl-md w-100 p-3 cursor-pointer hover:bg-gray-100  col-6">
               <div className="font-weight-bold">NHẬN PHÒNG</div>
               <div className="m-1">
-                {moment(checkInDate).format("DD-MM-YYYY")}
+                {moment(ngayDen).format("DD-MM-YYYY")}
               </div>
             </div>
             <div className=" rounded-tr-md w-100 p-3 cursor-pointer hover:bg-gray-100  rounded-lg col-6">
               <div className="font-weight-bold">TRẢ PHÒNG</div>
               <div className="m-1">
-                {moment(checkOutDate).format("DD-MM-YYYY")}
+                {moment(ngayDi).format("DD-MM-YYYY")}
               </div>
             </div>
           </div>
@@ -184,38 +196,38 @@ export default function BookingRoom() {
           <span>Bạn vẫn chưa bị trừ tiền</span>
         </div>
         <div className="border-bottom py-2 ">
-          <div className="d-flex justifyjustify-content-between py-1">
+          <div className="d-flex justify-content-between py-1">
             <div className="text-gray-600 gach">
-              {/* $ {roomDetail?.price} x{" "}
-                            {get_day_of_time(checkInDate, checkOutDate)} đêm */}
+              $ {roomDetail?.giaTien} x{" "}
+                            {get_day_of_time(ngayDen, ngayDi)} đêm
             </div>
-            <div className="gach">
-              {/* <span>
-                                {roomDetail?.price
-                                    ? roomDetail?.price *
-                                      get_day_of_time(checkInDate, checkOutDate)
+            <div className="">
+              <span>
+                                {roomDetail?.giaTien
+                                    ? roomDetail?.giaTien *
+                                      get_day_of_time(ngayDen, ngayDi)
                                     : ""}
-                            </span>{" "} */}
+                            </span>{" "}
               $
             </div>
           </div>
           <div className="d-flex justify-content-between py-1 text-base">
             <div className="gach text-gray-600 gach">Phí dịch vụ</div>
             <div>
-              <span>0</span>
+              <span>0 $</span>
             </div>
           </div>
         </div>
 
-        <div className="d-flex justify-content-between align-items-center text-lg pt-3 pb-4 font-weight-bold">
-          <h5 className="font-weight-bold">Tổng trước thuế</h5>
-          <div>
-            {/* {roomDetail?.price
-                            ? roomDetail?.price *
-                              get_day_of_time(checkInDate, checkOutDate)
+        <div className="d-flex justify-content-between align-items-center text-lg pt-3  font-weight-bold">
+          <h4 className="font-weight-bold">Tổng trước thuế</h4>
+          <h5>
+            {roomDetail?.giaTien
+                            ? roomDetail?.giaTien *
+                              get_day_of_time(ngayDen, ngayDi)
                             : ""}{" "}
-                        $ */}
-          </div>
+                        $
+          </h5>
         </div>
         {inputFocus ? (
           <div className="absolute top-0 right-0 border shadow-xl p-2 bg-white rounded-xl">
@@ -223,11 +235,11 @@ export default function BookingRoom() {
               <div>
                 <div>
                   <div className="text-2xl text-gray-800 font-weight-bold">
-                    {get_day_of_time(checkInDate, checkOutDate)} đêm
+                    {get_day_of_time(ngayDen, ngayDi)} đêm
                   </div>
                   <div className="text-gray-400">
-                    {moment(checkInDate).format("DD-MM-YYYY")} đến{" "}
-                    {moment(checkOutDate).format("DD-MM-YYYY")}
+                    {moment(ngayDen).format("DD-MM-YYYY")} đến{" "}
+                    {moment(ngayDi).format("DD-MM-YYYY")}
                   </div>
                 </div>
               </div>
