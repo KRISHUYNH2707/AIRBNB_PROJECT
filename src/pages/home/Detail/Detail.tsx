@@ -4,6 +4,7 @@ import "./detail.scss";
 import React, { useEffect, useState } from "react";
 import { getRoomApi } from "services/room";
 import Review from "../review/Review";
+import RoomListHeader from "pages/room/components/RoomListHeader";
 
 export default function Detail(): JSX.Element {
   const [roomDetail, setRoomDetail]: any = useState({});
@@ -24,7 +25,9 @@ export default function Detail(): JSX.Element {
   };
 
   return (
-    <div className="mx-auto container ">
+    <>
+      <RoomListHeader></RoomListHeader>
+      <div className="mx-auto container ">
       <p className="d-flex mt-5">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -550,5 +553,8 @@ export default function Detail(): JSX.Element {
         </div>
       </div>
     </div>
+    </>
+
+
   );
 }

@@ -19,6 +19,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { RootDispatch, RootState } from "store/config";
 import { Role, PathAdmin } from "enums";
 import { locationActions } from "store/reducers/locationReducer";
+import { loginActions } from "store/reducers/loginReducer";
 
 function RoomListHeader() {
   const dispatch = useDispatch<RootDispatch>();
@@ -144,6 +145,12 @@ function RoomListHeader() {
     },
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("USER_INFO_KEY");
+    dispatch(loginActions.setUserInfoAction({ token: "" }));
+    navigate("/");
+  };
+
   // END OF INLINE STYLES
 
   const renderLocationList = () => {
@@ -235,6 +242,7 @@ function RoomListHeader() {
                         selectedNumGuest: numGuest,
                       })
                     );
+                    navigate("/room-list")
                   }}
                 >
                   <BsSearch></BsSearch>
@@ -347,8 +355,8 @@ function RoomListHeader() {
                           <li>
                             <a href="">Trợ giúp</a>
                           </li>
-                          <li>
-                            <a href="">Đăng xuất</a>
+                          <li onClick={() => handleLogout()}>
+                            <a>Đăng xuất</a>
                           </li>
                         </ul>
                       </div>
