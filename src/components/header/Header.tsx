@@ -9,7 +9,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootDispatch, RootState } from "store/config";
 import { loginActions } from "store/reducers/loginReducer";
-import { PathAdmin, Role } from "enums";
+import { Role, PathAdmin } from "enums";
 
 export default function Header(): JSX.Element {
   const [settingMenu, setSettingMenu] = useState<boolean>(false);
@@ -21,16 +21,16 @@ export default function Header(): JSX.Element {
 
   const userMenuRef = useRef<any>();
 
-  //   useEffect(() => {
-  //     document.addEventListener("mousedown", (event  ) => {
-  //       if (!userMenuRef.current.contains(event.target)) {
-  //         setSettingMenu(false);
-  //       }
-  //       if (!userMenuRef.current.contains(event.target)) {
-  //         setSettingMenu(false);
-  //       }
-  //     });
-  //   });
+    useEffect(() => {
+      document.addEventListener("mousedown", (event  ) => {
+        if (!userMenuRef?.current?.contains(event.target)) {
+          setSettingMenu(false);
+        }
+        if (!userMenuRef?.current?.contains(event.target)) {
+          setSettingMenu(false);
+        }
+      });
+    });
 
   const handleLogout = () => {
     localStorage.removeItem("USER_INFO_KEY");

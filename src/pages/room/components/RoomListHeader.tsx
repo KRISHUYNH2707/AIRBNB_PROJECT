@@ -15,49 +15,38 @@ import { DateRangePicker } from "react-date-range";
 import { useDispatch } from "react-redux";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { setSelectedLocationReducer } from "../../../store/actions/locationInfor";
-import { useNavigate } from "react-router-dom";
-import { RootState } from "store/config";
-// em push lên rồi anh soi dùm em phần nào lỗi rồi anh nói cho em em ngồi fix tiếp vì anh làm nhiều phần em chưa biết owr đoạn nào //
-// Ui thì gánh thêm tí thôi logic em làm quen phần nào rồi nên dễ .
-// anh merge vào đã mới pull về được.
-// Khỏi lo anh chắc chắn còn lỗi
-interface Location {
-  id: number;
-  tenViTri: string;
-  tinhThanh: string;
-  quocGia: string;
-  hinhAnh: string;
-}
+import { NavLink, useNavigate } from "react-router-dom";
+import { RootDispatch, RootState } from "store/config";
+import { Role, PathAdmin } from "enums";
+import { locationActions } from "store/reducers/locationReducer";
+
 
 function RoomListHeader() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<RootDispatch>();
 
   // STATE
-  // dạ
   const suggestedLocations = useSelector(
     (state: RootState) => state.locationReducer.locationList.data
   );
   const [locationInputOnClick, setLocationInputOnClick] =
     useState<boolean>(false);
   const [datePickerOnClick, setDatePickerOnClick] = useState<boolean>(false);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date());
   const [numGuest, setNumGuest] = useState(1);
   const [selectedLocation, setSelectedLocation] = useState<string>("");
-  const [selectedLocationID, setSelectedLocationID] = useState<number>();
+  const [selectedLocationID, setSelectedLocationID] = useState<number>(-1);
   // END OF STATE
-
-  // dạ Hùng làm UI thôi phần trong thì em làm rồi đưa cho Hùng rồi nên mới đồng bộ được á .
 
   // handle open and close user menu
   const [settingMenu, setSettingMenu] = useState<boolean>(false);
   const userMenuRef = useRef<any>();
   useEffect(() => {
     document.addEventListener("mousedown", (event) => {
-      if (!userMenuRef.current.contains(event.target)) {
+      if (!userMenuRef?.current?.contains(event.target)) {
         setSettingMenu(false);
       }
-      if (!userMenuRef.current.contains(event.target)) {
+      if (!userMenuRef?.current?.contains(event.target)) {
         setSettingMenu(false);
       }
     });
@@ -70,11 +59,9 @@ function RoomListHeader() {
     (state: RootState) => state.locationReducer.selectedLocation
   );
 
-  // sao lại dùng giống nhau á anh
-
   //TODO - NEED TO CHANGE THE CORRECT REDUCER WHEN MERGING
   const userDetailState = useSelector(
-    (state: RootState) => state.locationReducer.selectedLocation // ví dụ như đây nè anh
+    (state: RootState) => state.loginReducer
   );
 
   // END OF GETTING LOCATION AND BOOKING DETAILS
@@ -84,10 +71,6 @@ function RoomListHeader() {
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);
   };
-
-  // map thì không cần vì không có vị trí tên chính xác á anh. // Mình phải chọn map ở phần admin ok nó mới đưa ra vị trí vĩ độ hay tên chẳng hạn
-  // Phần đó khó quá. // admin á anh. Phần nào em cũng làm được cả chủ yếu là em thích làm phần logic nhiều hơn .
-
   const selectionRange = {
     startDate: startDate,
     endDate: endDate,
@@ -110,10 +93,10 @@ function RoomListHeader() {
 
   useEffect(() => {
     document.addEventListener("mousedown", (event) => {
-      if (!locationRef.current.contains(event.target)) {
+      if (!locationRef?.current?.contains(event.target)) {
         setLocationInputOnClick(false);
       }
-      if (!datePickerRef.current.contains(event.target)) {
+      if (!datePickerRef?.current?.contains(event.target)) {
         setDatePickerOnClick(false);
       }
     });
@@ -121,7 +104,7 @@ function RoomListHeader() {
 
   useEffect(() => {
     document.addEventListener("mousedown", (event) => {
-      if (!datePickerRef.current.contains(event.target)) {
+      if (!datePickerRef?.current?.contains(event.target)) {
         setDatePickerOnClick(false);
       }
     });
@@ -245,12 +228,12 @@ function RoomListHeader() {
                 <button
                   onClick={() => {
                     dispatch(
-                      setSelectedLocationReducer({
-                        selectedLocationID,
-                        selectedLocation,
-                        startDate,
-                        endDate,
-                        numGuest,
+                      locationActions.setSelectedLocationReducer({
+                        locationID: selectedLocationID,
+                        locationName: selectedLocation,
+                        checkinDate: startDate,
+                        checkoutDate: endDate,
+                        selectedNumGuest: numGuest,
                       })
                     );
                   }}
@@ -283,21 +266,33 @@ function RoomListHeader() {
               <div className="user__info">
                 <div className="user__info--top">
                   {/* //TODO - CHANGE TO THE CORRECT ATTRIBUTE, NOT LOCATIONAME WHEN MERGING */}
-                  {userDetailState.locationName == "" ? (
+                  {userDetailState.token === "" ? (
                     <div className="user__info--wrapper">
                       <div className="user__signinup">
                         <div className="user__signin">
-                          <button onClick={() => navigate("/sign-in")}>
+                          <button onClick={() => navigate("/login")}>
                             Đăng nhập
                           </button>
                         </div>
                         <div className="user__signup">
-                          <button onClick={() => navigate("/sign-up")}>
+                          <button onClick={() => navigate("/register")}>
                             Đăng ký
                           </button>
                         </div>
                       </div>
                     </div>
+                  ) : userDetailState.user.role === Role.ADMIN ? (
+                    <>
+                      <div className="user__features">
+                        <div className="feature__item">
+                          <div className="feature__item--inner">
+                            <NavLink to={`${PathAdmin.ADMIN}`}>
+                              Quản trị
+                            </NavLink>
+                          </div>
+                        </div>
+                      </div>
+                    </>
                   ) : (
                     <div className="user__features">
                       <div className="feature__item">
@@ -336,7 +331,7 @@ function RoomListHeader() {
                         </li>
                         <li>
                           <a href="">
-                            {userDetailState.locationName == ""
+                            {userDetailState.token == ""
                               ? "Trợ giúp"
                               : "Tài khoản"}
                           </a>
@@ -345,7 +340,7 @@ function RoomListHeader() {
                     </div>
                   </div>
                 </div>
-                {userDetailState.locationName !== "" && (
+                {userDetailState.token !== "" && (
                   <div className="user__info--addedBottom">
                     <div className="user__info--wrapper">
                       <div className="user__services">

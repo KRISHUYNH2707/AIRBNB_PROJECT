@@ -54,7 +54,7 @@ function Carousel(): JSX.Element {
 
   useEffect(() => {
     document.addEventListener("mousedown", (event) => {
-      if (!locationRef.current.contains(event.target)) {
+      if (!locationRef?.current?.contains(event.target)) {
         setLocationInputOnClick(false);
       }
       if (!datePickerRef?.current?.contains(event.target)) {
