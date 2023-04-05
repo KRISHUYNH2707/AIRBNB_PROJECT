@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./register.scss";
 import { RootDispatch } from "store/config";
 import { fetchRegisterApiAction } from "store/reducers/registerReducer";
-// import { useForm } from "react-hook-form"; // mấy caí này để validate mà đang lỗi tui chưa biết sửa @@
+// import { useForm } from "react-hook-form"; // mấy caí này để validate mà đang lỗi tui chưa biết sửa @@ // cái này ở bài class component anh Mẫn có làm rồi mà // có làm lại 1 bài tập Hook nữa rồi mà
 
 export default function Register(): JSX.Element {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ export default function Register(): JSX.Element {
   };
 
   return (
-    <main className="main">
+    <main className="main-register">
       <div className="container pt-20 pb-20">
         <section className="wrapper">
           <div className="heading d-flex align-items-center d-flex flex-wrap pt-3">
@@ -49,11 +49,7 @@ export default function Register(): JSX.Element {
             <h2 className="text text-large mx-auto pb-2">Đăng ký tài khoản</h2>
           </div>
 
-          <form
-            name="signin"
-            className="form row"
-            onSubmit={handleSubmit}
-          >
+          <form name="signin" className="form row" onSubmit={handleSubmit}>
             <div className="input-control col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <label htmlFor="" className="input-label">
                 Tên người dùng

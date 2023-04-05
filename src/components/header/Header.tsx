@@ -1,21 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
-import logo from "../assets/logo.png";
+import logo from "assets/logo.png";
 import { TbWorld } from "react-icons/tb";
 import { BiMenu } from "react-icons/bi";
 import { HiUserCircle } from "react-icons/hi";
-import background from "../assets/background.jpg";
-import "../styles/header.scss";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "store/config";
+import background from "assets/background.jpg";
+import "styles/header.scss";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootDispatch, RootState } from "store/config";
+import { loginActions } from "store/reducers/loginReducer";
+import { PathAdmin, Role } from "enums";
 
 export default function Header(): JSX.Element {
   const [settingMenu, setSettingMenu] = useState<boolean>(false);
 
   //TODO - NEED TO CHANGE THE CORRECT REDUCER WHEN MERGING
-  const userDetailState = useSelector(
-    (state: RootState) => state.locationReducer.selectedLocation
-  );
+  const userDetailState = useSelector((state: RootState) => state.loginReducer);
+
+  const dispatch = useDispatch<RootDispatch>();
 
   const userMenuRef = useRef<any>();
 
@@ -29,6 +31,12 @@ export default function Header(): JSX.Element {
   //       }
   //     });
   //   });
+
+  const handleLogout = () => {
+    localStorage.removeItem("USER_INFO_KEY");
+    dispatch(loginActions.setUserInfoAction({ token: "" }));
+    navigate("/");
+  };
 
   const navigate = useNavigate();
   return (
@@ -75,7 +83,7 @@ export default function Header(): JSX.Element {
               <div className="user__info">
                 <div className="user__info--top">
                   {/* //TODO - CHANGE TO THE CORRECT ATTRIBUTE, NOT LOCATIONAME WHEN MERGING */}
-                  {userDetailState.locationName == "" ? (
+                  {userDetailState.token === "" ? (
                     <div className="user__info--wrapper">
                       <div className="user__signinup">
                         <div className="user__signin">
@@ -90,6 +98,18 @@ export default function Header(): JSX.Element {
                         </div>
                       </div>
                     </div>
+                  ) : userDetailState.user.role === Role.ADMIN ? (
+                    <>
+                      <div className="user__features">
+                        <div className="feature__item">
+                          <div className="feature__item--inner">
+                            <NavLink to={`${PathAdmin.ADMIN}`}>
+                              Quản trị
+                            </NavLink>
+                          </div>
+                        </div>
+                      </div>
+                    </>
                   ) : (
                     <div className="user__features">
                       <div className="feature__item">
@@ -128,7 +148,7 @@ export default function Header(): JSX.Element {
                         </li>
                         <li>
                           <a href="">
-                            {userDetailState.locationName == ""
+                            {userDetailState.token === ""
                               ? "Trợ giúp"
                               : "Tài khoản"}
                           </a>
@@ -137,7 +157,7 @@ export default function Header(): JSX.Element {
                     </div>
                   </div>
                 </div>
-                {userDetailState.locationName !== "" && (
+                {userDetailState.token !== "" && (
                   <div className="user__info--addedBottom">
                     <div className="user__info--wrapper">
                       <div className="user__services">
@@ -145,8 +165,8 @@ export default function Header(): JSX.Element {
                           <li>
                             <a href="">Trợ giúp</a>
                           </li>
-                          <li>
-                            <a href="">Đăng xuất</a>
+                          <li onClick={() => handleLogout()}>
+                            <a>Đăng xuất</a>
                           </li>
                         </ul>
                       </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../styles/carousel.scss";
+import "styles/carousel.scss";
 import { BsSearch } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import "react-date-range/dist/styles.css"; // main style file
@@ -12,14 +12,6 @@ import { lineHeight } from "@mui/system";
 import { LocationsDto } from "interfaces/location";
 import { RootDispatch, RootState } from "store/config";
 import { fetchLocationSearchListApiAction } from "store/reducers/locationReducer";
-
-interface Location {
-  id: number;
-  tenViTri: string;
-  tinhThanh: string;
-  quocGia: string;
-  hinhAnh: string;
-}
 
 function LocationList() {
   const inlineStyles: { [key: string]: React.CSSProperties } = {

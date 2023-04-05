@@ -4,7 +4,9 @@
     "paths": {
       "layouts/*": ["./layouts/*"],
       "pages/*": ["./pages/*"],
-      "components/*": ["./components/*"]
+      "components/*": ["./components/*"],
+      "styles/*": ["./styles/*"],
+      "assets/*": ["./assets/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

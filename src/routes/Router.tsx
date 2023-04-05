@@ -5,9 +5,7 @@ import { PathAdmin } from "enums";
 import AdminGuard from "guards/AdminGuard";
 import NoAuthGuard from "guards/NoAuthGuard";
 import AdminLayout from "layouts/adminLayout/AdminLayout";
-import HomeLayout from "layouts/homeLayout/HomeLayout";
 import LocationDataInformation from "pages/location-data-information/LocationDataInformation";
-import Login from "pages/login/Login";
 import PageNotFound from "pages/page-not-found/PageNotFound";
 import RoomInformation from "pages/room-information/RoomInformation";
 import RoomReservationInformation from "pages/room-reservation-information/RoomReservationInformation";
@@ -18,6 +16,7 @@ import Home from "pages/home/Home";
 import RoomList from "pages/room/RoomList";
 import Register from "pages/home/register/Register";
 import Detail from "pages/home/Detail/Detail";
+import Login from "pages/home/login/Login";
 
 export default function Router(): React.ReactElement<any> | null {
   //path

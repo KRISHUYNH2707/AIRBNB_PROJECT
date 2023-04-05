@@ -27,6 +27,7 @@ export default function Review(): JSX.Element {
   const getReviewDetail = async () => {
     if (params.roomId && params.roomId !== "") {
       await dispatch(fetchReviewRoomListAction(params.roomId));
+    }
   };
 
   const renderReview = () => {
@@ -40,6 +41,7 @@ export default function Review(): JSX.Element {
                   <img
                     src={ele.avatar}
                     className="hinh rounded-circle overflow-hidden shadow-lg p-0"
+                    alt=""
                   />
                 ) : (
                   <svg
@@ -61,7 +63,9 @@ export default function Review(): JSX.Element {
                 )}
               </div>
               <div className="ml-3 col-10 ">
-                <h5 className="text-gray-900 m-0 font-weight-bolder">{ele.tenNguoiBinhLuan}</h5>
+                <h5 className="text-gray-900 m-0 font-weight-bolder">
+                  {ele.tenNguoiBinhLuan}
+                </h5>
                 <h6 className="font-normal text-sm text-gray-500">
                   {moment(ele.ngayBinhLuan).format("DD")} tháng{" "}
                   {moment(ele.ngayBinhLuan).format("MM")} năm{" "}

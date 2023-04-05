@@ -1,3 +1,4 @@
+import { reviewReducer } from "./reducers/reviewReducer";
 // import { combineReducers, createStore } from "redux";
 // import { selectedLocationReducer } from "./reducers/selectedLocationReducer";
 // import { favoriteRoomReducer } from "./reducers/favoriteRoomReducer";
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   addressReducer: addressReducer,
   roomReducer: roomReducer,
   roomReservationReducer: roomReservationReducer,
+  reviewReducer: reviewReducer,
 });
 
 export const store = configureStore({
