@@ -91,6 +91,7 @@ export default function LocationForm(): JSX.Element {
           setLoading({ isLoading: true });
           await dispatch(fetchCreateLocationApiAction(data));
           setLoading({ isLoading: false });
+          navigate(`${ADMIN + LOCATION}`);
         } else {
           Modal.error({
             title: "Please select the province again!",

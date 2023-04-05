@@ -1,4 +1,4 @@
-import { Tooltip } from "antd";
+import { Button, Tooltip } from "antd";
 import { LoadingContext } from "contexts/loading/LoadingContext";
 
 import React, { useEffect, useContext, useState, useMemo } from "react";
@@ -76,13 +76,16 @@ export default function LocationDataInformation(): JSX.Element {
           title={"Create"}
           arrow={mergedArrow}
         >
-          <span
-            className="add-icon mx-4 my-3"
+          <Button
+            size="large"
+            className="mx-4 my-3"
             onClick={() => navigate(`${ADMIN + LOCATION + CREATE}`)}
+            type="primary"
+            icon={<FormOutlined />}
           >
-            <FormOutlined />
-            <span className="ml-4">Add</span>
-          </span>
+            {" "}
+            Add
+          </Button>
         </Tooltip>
       </div>
       <LocationTable

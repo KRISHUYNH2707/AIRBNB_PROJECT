@@ -1,4 +1,4 @@
-import { Tooltip } from "antd";
+import { Button, Tooltip } from "antd";
 import { LoadingContext } from "contexts/loading/LoadingContext";
 
 import React, { useEffect, useContext, useMemo, useState } from "react";
@@ -61,19 +61,23 @@ export default function RoomInformation(): JSX.Element {
         }}
       >
         <RoomSearch key="search" setKeyword={setKeyword} />
+
         <Tooltip
           key="create"
           placement="top"
           title={"Create"}
           arrow={mergedArrow}
         >
-          <span
-            className="add-icon mx-4 my-3"
+          <Button
+            size="large"
+            className="mx-4 my-3"
             onClick={() => navigate(`${ADMIN + ROOM + CREATE}`)}
+            type="primary"
+            icon={<FormOutlined />}
           >
-            <FormOutlined />
-            <span className="ml-4">Add</span>
-          </span>
+            {" "}
+            Add
+          </Button>
         </Tooltip>
       </div>
       <RoomTable

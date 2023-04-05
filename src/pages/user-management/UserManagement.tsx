@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useMemo, useState } from "react";
-import { Tooltip } from "antd";
+import { Button, Tooltip } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { RootDispatch, RootState } from "store/config";
 import { Users } from "interfaces/user";
@@ -67,18 +67,23 @@ export default function UserManagement(): JSX.Element {
         }}
       >
         <SearchUser key="search" setKeyword={setKeyword} />
+
         <Tooltip
           key="create"
           placement="top"
           title={"Create"}
           arrow={mergedArrow}
         >
-          <span className="add-icon mx-4 my-3">
-            <FormOutlined
-              onClick={() => navigate(`${ADMIN + USER + CREATE}`)}
-            />
-            <span className="ml-4">Add</span>
-          </span>
+          <Button
+            size="large"
+            className="mx-4 my-3"
+            onClick={() => navigate(`${ADMIN + USER + CREATE}`)}
+            type="primary"
+            icon={<FormOutlined />}
+          >
+            {" "}
+            Add
+          </Button>
         </Tooltip>
       </div>
       <UserTable
