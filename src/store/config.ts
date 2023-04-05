@@ -38,7 +38,8 @@ export const store = configureStore({
     {
       key: "root",
       storage: storage,
-      whitelist: ["addressReducer"],
+      whitelist: [],
+      blacklist: [],
     },
     rootReducer
   ),

@@ -20,7 +20,6 @@ import { RootDispatch, RootState } from "store/config";
 import { Role, PathAdmin } from "enums";
 import { locationActions } from "store/reducers/locationReducer";
 
-
 function RoomListHeader() {
   const dispatch = useDispatch<RootDispatch>();
 
@@ -60,9 +59,7 @@ function RoomListHeader() {
   );
 
   //TODO - NEED TO CHANGE THE CORRECT REDUCER WHEN MERGING
-  const userDetailState = useSelector(
-    (state: RootState) => state.loginReducer
-  );
+  const userDetailState = useSelector((state: RootState) => state.loginReducer);
 
   // END OF GETTING LOCATION AND BOOKING DETAILS
 
@@ -192,7 +189,7 @@ function RoomListHeader() {
                 type="text"
                 placeholder="Bạn sắp đi đâu?"
                 value={selectedLocation}
-                className=""
+                className="input-border__none "
                 onFocus={() => {
                   setLocationInputOnClick(true);
                 }}
@@ -206,6 +203,7 @@ function RoomListHeader() {
               <input
                 placeholder="Thêm ngày"
                 type="text"
+                className="input-border__none "
                 value={formatDate(startDate) + " - " + formatDate(endDate)}
                 onFocus={() => setDatePickerOnClick(true)}
                 style={inlineStyles.inputField}
@@ -222,6 +220,7 @@ function RoomListHeader() {
                 onFocus={() => setDatePickerOnClick(true)}
                 style={inlineStyles.inputField}
                 className={styles.numGuest__text}
+                disabled
               />
 
               <div>

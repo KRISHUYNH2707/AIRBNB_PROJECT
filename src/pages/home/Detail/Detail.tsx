@@ -5,9 +5,8 @@ import React, { useEffect, useState } from "react";
 import { getRoomApi } from "services/room";
 import Review from "../review/Review";
 
-
 export default function Detail(): JSX.Element {
-  const [roomDetail, setRoomDetail]: any = useState({}); // cái này sai rồi á
+  const [roomDetail, setRoomDetail]: any = useState({});
   const params = useParams();
   const createRandomNumber = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -20,7 +19,7 @@ export default function Detail(): JSX.Element {
   const getRoomDetail = async () => {
     if (params.roomId) {
       const result = await getRoomApi(params.roomId);
-      setRoomDetail(result.data.content); // đáng ra phải qua Reducer nhưng ông làm thẳng luôn :V tui teamview cho xem nè . //okey
+      setRoomDetail(result.data.content);
     }
   };
 
@@ -130,6 +129,7 @@ export default function Detail(): JSX.Element {
             <img
               src="https://cdn3.ivivu.com/2018/05/ngoi-chua-co-tuong-phat-bang-toc-nguoi-lon-nhat-viet-nam-ivivu-1.jpg" // con cai nay lay avt
               className=" w-avt ml-auto "
+              alt=""
             />
             <div className="position-absolute ml-auto right1">
               <svg

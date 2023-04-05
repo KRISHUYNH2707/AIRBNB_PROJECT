@@ -5,7 +5,7 @@ import room from "../../../assets/background.jpg";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { formatDate } from "../../../utils";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import { setFavoriateRoom } from "../../../store/actions/locationInfor";
 import { RootState } from "store/config";
 import { fetchRoomListByLocationApi } from "services/room";
@@ -17,7 +17,7 @@ export default function SuggestedRoom(): JSX.Element {
   );
   // const favoriteRoomsState = useSelector((state:any) => state.favoriteRoomReducer)
 
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
   // const dispatch = useDispatch()
 
   const [roomList, setRoomList] = useState<RoomsDto[]>([]);
@@ -41,7 +41,7 @@ export default function SuggestedRoom(): JSX.Element {
           <div className="room__card-wrapper">
             <div
               className="room__image col-md-5"
-              onClick={() => navigate(`room/${ele.id}`)}
+              onClick={() => navigate(`/room-detail/${ele.id}`)}
             >
               <img className="displayed__image" src={ele.hinhAnh} alt="" />
             </div>
