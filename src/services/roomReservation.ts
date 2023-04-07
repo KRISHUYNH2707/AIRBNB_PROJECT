@@ -2,10 +2,7 @@ import { AxiosPromise } from "axios";
 import { axiosRequest } from "configs/axios.config";
 import { Request } from "enums";
 import { RoomReservationsDto } from "interfaces/roomReservation";
-const {
-  GET,
-  //  DELETE, POST, PUT
-} = Request;
+const { GET } = Request;
 export const getRoomReservationListApi = (): AxiosPromise<
   HttpResponse<RoomReservationsDto[]>
 > => {

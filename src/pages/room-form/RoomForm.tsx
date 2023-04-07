@@ -1,23 +1,11 @@
-import { CascaderProps, Switch } from "antd";
-import {
-  AutoComplete,
-  Button,
-  Cascader,
-  Checkbox,
-  Col,
-  Form,
-  Input,
-  InputNumber,
-  Row,
-  Select,
-} from "antd";
+import { Switch } from "antd";
+import { Button, Col, Form, Input, InputNumber, Row, Select } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { LoadingContext } from "contexts/loading/LoadingContext";
 import { PathAdmin } from "enums";
 import { formItemLayout, tailFormItemLayout } from "hooks/useMyForm";
 import { LocationsDto } from "interfaces/location";
 import { RoomsDto } from "interfaces/room";
-import { min } from "moment";
 import React, { useState, useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
@@ -47,7 +35,6 @@ export default function RoomForm(): JSX.Element {
   const navigate: NavigateFunction = useNavigate();
 
   //path
-
   useEffect(() => {
     handleFetchLocationListApi();
   }, []);
@@ -76,7 +63,6 @@ export default function RoomForm(): JSX.Element {
     giaTien,
     maViTri,
   } = roomInfoState;
-  console.log(roomInfoState);
 
   useEffect(() => {
     roomId &&
@@ -247,7 +233,6 @@ export default function RoomForm(): JSX.Element {
       giaTien,
       maViTri,
     };
-    console.log("Received values of form: ", data);
 
     if (roomId) {
       setLoading({ isLoading: true });

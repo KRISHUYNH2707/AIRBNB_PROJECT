@@ -7,7 +7,6 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedLocationReducer } from "../store/actions/locationInfor";
 import { lineHeight } from "@mui/system";
 import { LocationsDto } from "interfaces/location";
 import { RootDispatch, RootState } from "store/config";

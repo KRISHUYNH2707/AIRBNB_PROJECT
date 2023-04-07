@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "../../../../styles/places.scss";
-import fullHouse from "../../../../assets/fullHouse.jpg";
-import oldHouse from "../../../../assets/oldHouse.jpg";
-import greenHouse from "../../../../assets/greenHouse.jpg";
-import cat from "../../../../assets/cat.jpg";
-import { fetchLocationSearchListApi } from "../../../../services/location";
+import "styles/places.scss";
+import fullHouse from "assets/fullHouse.jpg";
+import oldHouse from "assets/oldHouse.jpg";
+import greenHouse from "assets/greenHouse.jpg";
+import cat from "assets/cat.jpg";
+import { fetchLocationSearchListApi } from "services/location";
 import { LocationsDto } from "interfaces/location";
 
 function Places(): JSX.Element {
@@ -12,30 +12,31 @@ function Places(): JSX.Element {
 
   const fetchLocations = async () => {
     const nearbyLocations = await fetchLocationSearchListApi();
-    console.log(nearbyLocations);
+
     setNearbyLocations(nearbyLocations.data.content.data);
-    // console.log(nearbyLocations)
   };
   useEffect(() => {
     fetchLocations();
   }, []);
 
   const renderNearbyLocations = () => {
-    return nearbyLocations?.map((ele, idx) => {
-      // định nghĩa cái trên rồi giờ ele không cần định nghĩa lại
+    return nearbyLocations?.map((location, idx) => {
       return (
-        <div className="location__card col-12 col-md-6 col-lg-3" key={idx}>
+        <div
+          className="location__card col-12 col-md-6 col-lg-3"
+          key={location.id}
+        >
           <div className="card__left">
             <img
               className="location__image"
               width={70}
               height={70}
-              src={ele.hinhAnh}
+              src={location.hinhAnh}
               alt=""
             />
           </div>
           <div className="card__right ml-3">
-            <h2>{ele.tinhThanh}</h2>
+            <h2>{location.tinhThanh}</h2>
             <h3>15 phút lái xe</h3>
           </div>
         </div>

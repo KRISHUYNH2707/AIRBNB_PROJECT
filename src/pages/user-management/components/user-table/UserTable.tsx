@@ -5,19 +5,19 @@ import React, { useState, useMemo } from "react";
 import { deleteUserApiAction } from "store/reducers/userReducer";
 import { useDispatch } from "react-redux";
 import { RootDispatch } from "store/config";
-import { Users } from "interfaces/user";
 import { ColumnsType, TablePaginationConfig } from "antd/es/table";
 import { Content } from "interfaces/searchContent";
 import { PathAdmin } from "enums";
+import { UserInfo } from "interfaces/login";
 
 interface Props {
   handleFetchUserListApi: (page: number, keyword: string) => Promise<void>;
   keyword: string;
   setLoading: any;
-  userList: Content<Users>;
+  userList: Content<UserInfo>;
 }
 
-interface DataUsers extends Users {
+interface DataUser extends UserInfo {
   key: number;
 }
 
@@ -96,14 +96,14 @@ export default function UserTable(props: Props) {
     });
   };
 
-  const data: DataUsers[] = userList.data.map((user: any, idx: number) => {
+  const data: DataUser[] = userList.data.map((user: any, idx: number) => {
     return {
       ...user,
       key: idx,
     };
   });
 
-  const columns: ColumnsType<DataUsers> = [
+  const columns: ColumnsType<DataUser> = [
     {
       title: "Avatar",
       dataIndex: "avatar",
@@ -159,7 +159,7 @@ export default function UserTable(props: Props) {
     {
       title: "Action",
       key: "action",
-      render: (user: Users) => (
+      render: (user: UserInfo) => (
         <Space size="middle">{renderActions(user.id)}</Space>
       ),
     },

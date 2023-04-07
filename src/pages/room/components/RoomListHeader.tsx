@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { TbWorld } from "react-icons/tb";
 import { BiMenu } from "react-icons/bi";
-import { HiCurrencyEuro, HiUserCircle } from "react-icons/hi";
-import background from "../assets/background.jpg";
+import { HiUserCircle } from "react-icons/hi";
 import logo from "../../../assets/logo.png";
 import { BsSearch } from "react-icons/bs";
 import styles from "../../../styles/roomheader.module.scss";
@@ -10,11 +9,9 @@ import "../../../styles/carousel.scss";
 import { useSelector } from "react-redux";
 import { formatDate } from "../../../utils";
 import { fetchLocationListApi } from "../../../services/location";
-import LocationList from "../../../components/LocationList";
 import { DateRangePicker } from "react-date-range";
 import { useDispatch } from "react-redux";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import { setSelectedLocationReducer } from "../../../store/actions/locationInfor";
 import { NavLink, useNavigate } from "react-router-dom";
 import { RootDispatch, RootState } from "store/config";
 import { Role, PathAdmin } from "enums";
@@ -111,8 +108,7 @@ function RoomListHeader() {
   // END OF MOUSE CLICKING CHECK
 
   const getLocationList = async () => {
-    const result = await fetchLocationListApi();
-    // setSuggestedLocations(result.data.content);
+    await fetchLocationListApi();
   };
 
   // LINESTYLES
@@ -178,9 +174,6 @@ function RoomListHeader() {
       );
     });
   };
-
-  // mẻ
-
   return (
     <div className={styles.header}>
       <div className={styles.header__wrapper}>
@@ -242,7 +235,7 @@ function RoomListHeader() {
                         selectedNumGuest: numGuest,
                       })
                     );
-                    navigate("/room-list")
+                    navigate("/room-list");
                   }}
                 >
                   <BsSearch></BsSearch>

@@ -7,14 +7,14 @@ import moment from "moment";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { Modal, notification } from "antd";
+import { notification } from "antd";
 import { RootDispatch, RootState } from "store/config";
 import { BookingDto } from "interfaces/booking";
 import { getRoomApi } from "services/room";
 import { fetchBookingListAction } from "store/reducers/bookingReducer";
 
 export default function BookingRoom() {
-  const user = useSelector((state: RootState) => state.loginReducer); // sai nua nay ong
+  const user = useSelector((state: RootState) => state.loginReducer);
   const [inputFocus, setInputFocus] = useState(false);
   const [ngayDen, setNgayDen] = useState(new Date());
   const [ngayDi, setNgayDi] = useState(new Date());
@@ -60,7 +60,6 @@ export default function BookingRoom() {
     onChange: handleSelect,
   };
   const get_day_of_time = (d1: Date, d2: Date) => {
-    // đặt tên theo Camel key đi ông
     let ms1 = d1.getTime();
     let ms2 = d2.getTime();
     return Math.ceil((ms2 - ms1) / (24 * 60 * 60 * 1000));
@@ -70,13 +69,12 @@ export default function BookingRoom() {
     const data: BookingDto = {
       id: 0,
       ngayDen: e.ngayDen,
-      ngayDi: e.ngayDi ,
+      ngayDi: e.ngayDi,
       maPhong: 0,
       soLuongKhach: 1,
       maNguoiDung: 1,
     };
     if (user.token !== "") {
-      // cais nayf laf cais j layas o dau a
       Swal.fire({
         icon: "warning",
         text: "Bạn có chắc chắn đặt phòng không!",
@@ -86,11 +84,11 @@ export default function BookingRoom() {
         cancelButtonColor: "#d33",
       }).then((result) => {
         if (result.isConfirmed) {
-          const dataPost:any = {
+          const dataPost: any = {
             id: roomDetail.id,
             information: data,
           };
-           dispatch(fetchBookingListAction(dataPost))
+          dispatch(fetchBookingListAction(dataPost));
         }
       });
     } else {
@@ -109,7 +107,6 @@ export default function BookingRoom() {
       });
     }
   };
-
 
   return (
     <div className="row rounded-lg bg-white shadow-xl border p-6 w-100 mx-auto sticky top-28 pb-4">
@@ -147,15 +144,11 @@ export default function BookingRoom() {
           >
             <div className="border-right border-secondary rounded-tl-md w-100 p-3 cursor-pointer hover:bg-gray-100  col-6">
               <div className="font-weight-bold">NHẬN PHÒNG</div>
-              <div className="m-1">
-                {moment(ngayDen).format("DD-MM-YYYY")}
-              </div>
+              <div className="m-1">{moment(ngayDen).format("DD-MM-YYYY")}</div>
             </div>
             <div className=" rounded-tr-md w-100 p-3 cursor-pointer hover:bg-gray-100  rounded-lg col-6">
               <div className="font-weight-bold">TRẢ PHÒNG</div>
-              <div className="m-1">
-                {moment(ngayDi).format("DD-MM-YYYY")}
-              </div>
+              <div className="m-1">{moment(ngayDi).format("DD-MM-YYYY")}</div>
             </div>
           </div>
 
@@ -198,16 +191,14 @@ export default function BookingRoom() {
         <div className="border-bottom py-2 ">
           <div className="d-flex justify-content-between py-1">
             <div className="text-gray-600 gach">
-              $ {roomDetail?.giaTien} x{" "}
-                            {get_day_of_time(ngayDen, ngayDi)} đêm
+              $ {roomDetail?.giaTien} x {get_day_of_time(ngayDen, ngayDi)} đêm
             </div>
             <div className="">
               <span>
-                                {roomDetail?.giaTien
-                                    ? roomDetail?.giaTien *
-                                      get_day_of_time(ngayDen, ngayDi)
-                                    : ""}
-                            </span>{" "}
+                {roomDetail?.giaTien
+                  ? roomDetail?.giaTien * get_day_of_time(ngayDen, ngayDi)
+                  : ""}
+              </span>{" "}
               $
             </div>
           </div>
@@ -223,10 +214,9 @@ export default function BookingRoom() {
           <h4 className="font-weight-bold">Tổng trước thuế</h4>
           <h5>
             {roomDetail?.giaTien
-                            ? roomDetail?.giaTien *
-                              get_day_of_time(ngayDen, ngayDi)
-                            : ""}{" "}
-                        $
+              ? roomDetail?.giaTien * get_day_of_time(ngayDen, ngayDi)
+              : ""}{" "}
+            $
           </h5>
         </div>
         {inputFocus ? (
