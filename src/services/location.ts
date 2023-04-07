@@ -1,4 +1,3 @@
-import { UploadImageLocation } from "./../interfaces/location";
 import { Content } from "interfaces/searchContent";
 import { AxiosPromise } from "axios";
 import { axiosRequest } from "configs/axios.config";
@@ -11,7 +10,6 @@ const { DELETE, GET, POST, PUT } = Request;
 export const fetchLocationListApi = (): AxiosPromise<
   HttpResponse<LocationsDto[]>
 > => {
-  // dạ
   return axiosRequest({
     url: `/vi-tri`,
     method: GET,

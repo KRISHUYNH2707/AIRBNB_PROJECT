@@ -8,18 +8,14 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedLocationReducer } from "store/actions/locationInfor";
 import {
   fetchLocationSearchListApiAction,
   locationActions,
 } from "store/reducers/locationReducer";
-import { fetchLocationListApi } from "services/location";
 import { RootDispatch, RootState } from "store/config";
 
 function Carousel(): JSX.Element {
   // STATE
-  //   const [suggestedLocations, setSuggestedLocations] = useState([]); // cái này là gì á anh. // chờ em xíu
-
   const locationState = useSelector(
     (state: RootState) => state.locationReducer.locationList.data
   );
@@ -72,10 +68,9 @@ function Carousel(): JSX.Element {
   });
 
   const getLocationList = async () => {
-    const result = await dispatch(
+    await dispatch(
       fetchLocationSearchListApiAction({ page: 1, size: 12, keyword: "" })
     );
-    // setSuggestedLocations(result.data.content);
   };
 
   const renderLocationList = () => {

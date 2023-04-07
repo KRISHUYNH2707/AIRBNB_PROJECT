@@ -20,10 +20,8 @@ export default function RoomInformation(): JSX.Element {
   const [, setLoading] = useContext(LoadingContext);
 
   // path
-
   const { ADMIN, ROOM, CREATE } = PathAdmin;
 
-  // show tooltip
   const [arrow] = useState("Show");
   const mergedArrow = useMemo(() => {
     if (arrow === "Hide") {

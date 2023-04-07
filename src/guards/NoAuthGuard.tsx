@@ -21,12 +21,13 @@ export default function NoAuthGuard() {
         }
         case Role.USER: {
           navigate("/");
-
           break;
         }
 
-        default:
+        default: {
+          navigate("/");
           break;
+        }
       }
     }
   }, []);

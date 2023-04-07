@@ -5,15 +5,15 @@ import {
   fetchUserInfoApi,
   updateUserApi,
 } from "services/user";
-import { Users } from "interfaces/user";
 import { Content } from "interfaces/searchContent";
 
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchUserListApi } from "services/user";
+import { UserInfo } from "interfaces/login";
 
-export interface UserState {
-  userInfo: Users;
-  userList: Content<Users>;
+interface UserState {
+  userInfo: UserInfo;
+  userList: Content<UserInfo>;
 }
 
 const DEFAULT_STATE = {
@@ -85,7 +85,7 @@ export const fetchUserListApiAction = createAsyncThunk(
 
 export const createUserApiAction = createAsyncThunk(
   "userReducer/createUserApiAction",
-  async (information: Users) => {
+  async (information: UserInfo) => {
     await createUserApi(information);
     return true;
   }
@@ -101,7 +101,7 @@ export const deleteUserApiAction = createAsyncThunk(
 
 export const updateUserApiAction = createAsyncThunk(
   "userReducer/updateUserApiAction",
-  async (update: { userId: string; information: Users }) => {
+  async (update: { userId: string; information: UserInfo }) => {
     const { userId, information } = update;
     await updateUserApi(userId, information);
   }
@@ -122,7 +122,7 @@ const userSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(
       fetchUserListApiAction.fulfilled,
-      (state: UserState, action: PayloadAction<Content<Users>>) => {
+      (state: UserState, action: PayloadAction<Content<UserInfo>>) => {
         const { pageSize, pageIndex, totalRow, keywords, data } =
           action.payload;
         state.userList.pageSize = pageSize;
@@ -155,7 +155,7 @@ const userSlice = createSlice({
     });
     builder.addCase(
       fetchUserInfoApiAction.fulfilled,
-      (state: UserState, action: PayloadAction<Users>) => {
+      (state: UserState, action: PayloadAction<UserInfo>) => {
         state.userInfo = action.payload;
       }
     );
