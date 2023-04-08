@@ -3,7 +3,8 @@ import {
   deleteRoomApi,
   getRoomApi,
   updateRoomApi,
-} from "./../../services/room";
+  uploadImageApi,
+} from "services/room";
 import { notification } from "antd";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { RoomsDto } from "interfaces/room";
@@ -70,6 +71,14 @@ export const fetchDeleteRoomApi = createAsyncThunk(
   }
 );
 
+export const fetchUploadImageApiAction = createAsyncThunk(
+  "roomReducer/fetchUploadImageApiAction",
+  async (upload: { id: number; data: FormData }) => {
+    const { id, data } = upload;
+    await uploadImageApi(id, data);
+  }
+);
+
 const roomSlice = createSlice({
   name: "roomReducer",
   initialState: DEFAULT_STATE,
@@ -127,6 +136,17 @@ const roomSlice = createSlice({
     });
 
     builder.addCase(fetchDeleteRoomApi.rejected, () => {
+      notification.error({
+        message: "Error !",
+      });
+    });
+    builder.addCase(fetchUploadImageApiAction.fulfilled, () => {
+      notification.success({
+        message: "Upload image room successfully !",
+      });
+    });
+
+    builder.addCase(fetchUploadImageApiAction.rejected, () => {
       notification.error({
         message: "Error !",
       });

@@ -65,3 +65,14 @@ export const deleteRoomApi = (id: number): AxiosPromise<HttpResponse<null>> => {
     method: DELETE,
   });
 };
+
+export const uploadImageApi = (
+  roomId: number,
+  information: FormData
+): AxiosPromise<HttpResponse<RoomsDto>> => {
+  return axiosRequest({
+    url: `/phong-thue/upload-hinh-phong?maPhong=${roomId}`,
+    method: POST,
+    data: information,
+  });
+};
