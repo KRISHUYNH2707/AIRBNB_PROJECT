@@ -1,5 +1,3 @@
-import { Table, Tooltip } from "antd";
-import { RoomsDto } from "interfaces/room";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootDispatch, RootState } from "store/config";
@@ -19,7 +17,15 @@ export default function RoomReservationInformation(): JSX.Element {
     await dispatch(fetchGetRoomReservationListApiAction());
   };
 
-  console.log(roomReservation);
+  const renderNameRoomReservation = () => {
+    return roomReservation.map((room) => {
+      return <li key={room.id}>{room.maPhong}</li>;
+    });
+  };
 
-  return <div></div>;
+  return (
+    <div>
+      <ul>{renderNameRoomReservation()}</ul>
+    </div>
+  );
 }

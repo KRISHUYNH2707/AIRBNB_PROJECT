@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import "./register.scss";
 import { RootDispatch } from "store/config";
 import { fetchRegisterApiAction } from "store/reducers/registerReducer";
-// import { useForm } from "react-hook-form"; // mấy caí này để validate mà đang lỗi tui chưa biết sửa @@ // cái này ở bài class component anh Mẫn có làm rồi mà // có làm lại 1 bài tập Hook nữa rồi mà
 
 export default function Register(): JSX.Element {
   const navigate = useNavigate();
@@ -18,12 +17,6 @@ export default function Register(): JSX.Element {
     gender: true,
     address: "",
   });
-
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm();
 
   const handleChange = (event: any) => {
     const { name, value } = event.target;

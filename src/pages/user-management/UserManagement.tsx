@@ -2,7 +2,6 @@ import React, { useEffect, useContext, useMemo, useState } from "react";
 import { Button, Tooltip } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { RootDispatch, RootState } from "store/config";
-import { Users } from "interfaces/user";
 import { LoadingContext } from "contexts/loading/LoadingContext";
 import { fetchUserListApiAction } from "store/reducers/userReducer";
 import { NavigateFunction, useNavigate } from "react-router-dom";
@@ -12,9 +11,10 @@ import "./index.scss";
 import { Content } from "interfaces/searchContent";
 import SearchUser from "./components/user-search/SearchUser";
 import UserTable from "./components/user-table/UserTable";
+import { UserInfo } from "interfaces/login";
 
 export default function UserManagement(): JSX.Element {
-  const userList: Content<Users> = useSelector(
+  const userList: Content<UserInfo> = useSelector(
     (state: RootState) => state.userReducer.userList
   );
 

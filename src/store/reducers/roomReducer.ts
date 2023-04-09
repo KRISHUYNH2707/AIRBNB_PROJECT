@@ -17,9 +17,9 @@ export interface RoomState {
 }
 
 const DEFAULT_STATE = {
-  roomInfo: {}, // khi update no moi them vao kieu nay  // lấy thẳng từ cái này thêm vào nè // lấy từ đó nên là number// ú kì, mà ôg làm lạ ha đặt tên đồ qtr// sau khi ông nhìn lại còn có tên mà biết không sau fix lại không biết chỗ nào mà fix ấy mà.
+  roomInfo: {},
   roomList: {
-    pageIndex: 1, // đây là phần phân trang nè
+    pageIndex: 1,
     pageSize: 2,
     totalRow: 10,
     keywords: "",
@@ -108,12 +108,11 @@ const roomSlice = createSlice({
       });
     });
     builder.addCase(
-      fetchGetRoomApiAction.fulfilled, // cái này xài cho việc update // khi nào cần mình mới thêm vào kiểu v .// này
+      fetchGetRoomApiAction.fulfilled,
       (state: RoomState, action: PayloadAction<RoomsDto>) => {
         state.roomInfo = action.payload;
       }
     );
-
     builder.addCase(fetchGetRoomApiAction.rejected, () => {
       notification.error({
         message: "Error !",

@@ -1,16 +1,4 @@
 import { reviewReducer } from "./reducers/reviewReducer";
-// import { combineReducers, createStore } from "redux";
-// import { selectedLocationReducer } from "./reducers/selectedLocationReducer";
-// import { favoriteRoomReducer } from "./reducers/favoriteRoomReducer";
-// const rootReducer = combineReducers({
-//     selectedLocationReducer: selectedLocationReducer,
-//     favoriteRoomReducer: favoriteRoomReducer
-// });
-
-// export const store = createStore(
-//   rootReducer,
-//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-// );
 
 import { roomReservationReducer } from "./reducers/roomReservationReducer";
 import { roomReducer } from "./reducers/roomReducer";
@@ -38,7 +26,7 @@ export const store = configureStore({
     {
       key: "root",
       storage: storage,
-      whitelist: [],
+      whitelist: ["addressReducer"],
       blacklist: [],
     },
     rootReducer

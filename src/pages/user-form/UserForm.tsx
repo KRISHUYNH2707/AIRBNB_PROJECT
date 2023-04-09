@@ -3,12 +3,11 @@ import { Button, Form, Input, Select, Switch } from "antd";
 import dayjs from "dayjs";
 
 import { Header } from "antd/es/layout/layout";
-import React, { useContext, useEffect, ChangeEvent, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
 import { LoadingContext } from "contexts/loading/LoadingContext";
 import { PathAdmin } from "enums";
-import { Users } from "interfaces/user";
 import { RootDispatch, RootState } from "store/config";
 import {
   createUserApiAction,
@@ -16,6 +15,7 @@ import {
   updateUserApiAction,
 } from "store/reducers/userReducer";
 import { formItemLayout, tailFormItemLayout } from "hooks/useMyForm";
+import { UserInfo } from "interfaces/login";
 
 interface ValuesAddUserForm {
   name: string;
@@ -28,10 +28,7 @@ interface ValuesAddUserForm {
 }
 
 export default function UserForm(): JSX.Element {
-  const [file, setFile] = useState<File>();
-  const [imagePreview, setImagePreview] = useState<string>("");
-
-  const userInfo: Users = useSelector(
+  const userInfo: UserInfo = useSelector(
     (state: RootState) => state.userReducer.userInfo
   );
   const { name, email, gender, phone, birthday, role, avatar } = userInfo;
@@ -81,7 +78,7 @@ export default function UserForm(): JSX.Element {
 
   const handleFinish = async (values: ValuesAddUserForm) => {
     const { name, password, email, gender, phone, birthday, role } = values;
-    const data: Users = {
+    const data: UserInfo = {
       id: 0,
       name,
       email,

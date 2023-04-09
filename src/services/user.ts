@@ -1,8 +1,8 @@
-import { Users } from "interfaces/user";
 import { AxiosPromise } from "axios";
 import { axiosRequest } from "configs/axios.config";
 import { Content } from "interfaces/searchContent";
 import { Request } from "enums";
+import { UserInfo } from "interfaces/login";
 
 // request : 'STRING'
 
@@ -12,7 +12,7 @@ export const fetchUserListApi = (
   page: number,
   pageSizes: number,
   keyword: string = ""
-): AxiosPromise<HttpResponse<Content<Users>>> => {
+): AxiosPromise<HttpResponse<Content<UserInfo>>> => {
   return axiosRequest({
     url: `/users/phan-trang-tim-kiem?pageIndex=${page}&pageSize=${pageSizes}${
       keyword === "" ? "" : `&keyword=${keyword}`
@@ -23,7 +23,7 @@ export const fetchUserListApi = (
 
 export const fetchUserInfoApi = (
   userId: string | number
-): AxiosPromise<HttpResponse<Users>> => {
+): AxiosPromise<HttpResponse<UserInfo>> => {
   return axiosRequest({
     url: `/users/${userId}`,
     method: GET,
@@ -31,8 +31,8 @@ export const fetchUserInfoApi = (
 };
 
 export const createUserApi = (
-  information: Users
-): AxiosPromise<HttpResponse<Users | string>> => {
+  information: UserInfo
+): AxiosPromise<HttpResponse<UserInfo | string>> => {
   return axiosRequest({
     url: "/users",
     method: POST,
@@ -49,7 +49,7 @@ export const deleteUserApi = (
   });
 };
 
-export const updateUserApi = (userId: string, information: Users) => {
+export const updateUserApi = (userId: string, information: UserInfo) => {
   return axiosRequest({
     url: `/users/${userId}`,
     method: PUT,

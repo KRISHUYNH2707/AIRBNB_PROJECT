@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
-import "../../../styles/roomSearch.scss";
-import room from "../../../assets/background.jpg";
+import "styles/roomSearch.scss";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { formatDate } from "../../../utils";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { setFavoriateRoom } from "../../../store/actions/locationInfor";
 import { RootState } from "store/config";
 import { fetchRoomListByLocationApi } from "services/room";
 import { RoomsDto } from "interfaces/room";
@@ -15,10 +13,8 @@ export default function SuggestedRoom(): JSX.Element {
   const selectedLocationState = useSelector(
     (state: RootState) => state.locationReducer.selectedLocation
   );
-  // const favoriteRoomsState = useSelector((state:any) => state.favoriteRoomReducer)
 
   const navigate: NavigateFunction = useNavigate();
-  // const dispatch = useDispatch()
 
   const [roomList, setRoomList] = useState<RoomsDto[]>([]);
   const [favoriteRooms, setFavoriteRooms] = useState<number[]>([]);

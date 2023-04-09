@@ -4,7 +4,7 @@ import { Request } from "enums";
 import { Content } from "interfaces/searchContent";
 import { RoomsDto } from "interfaces/room";
 
-//request : "STRING"
+//request
 const { GET, DELETE, POST, PUT } = Request;
 
 export const fetchRoomListByLocationApi = (

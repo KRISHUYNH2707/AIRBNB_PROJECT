@@ -22,14 +22,6 @@ const DEFAULT_STATE = {
   provinceCode: 1,
 } as AddressState;
 
-if (localStorage.getItem("USER_INFO_KEY")) {
-  const { token, user } = JSON.parse(
-    localStorage.getItem("USER_INFO_KEY") || ""
-  );
-  //   DEFAULT_STATE.token = token;
-  //   DEFAULT_STATE.user = user;
-}
-
 export const fetchProvincesListApiAction = createAsyncThunk(
   "locationReducer/fetchProvincesListApiAction",
   async () => {

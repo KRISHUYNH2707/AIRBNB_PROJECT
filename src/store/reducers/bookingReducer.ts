@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { notification } from "antd";
 import { BookingDto } from "interfaces/booking";
 import { postBookingApi } from "services/booking";
@@ -13,9 +13,8 @@ const DEFAULT_STATE = {
 
 export const fetchBookingListAction = createAsyncThunk(
   "bookingReducer/fetchBookingListAction",
-  async (post :  {id : string | number ,information : BookingDto}) => {
-;
-    const result = await postBookingApi( post.id , post.information );
+  async (post: { id: string | number; information: BookingDto }) => {
+    const result = await postBookingApi(post.id, post.information);
     return result.data.content;
   }
 );
@@ -25,14 +24,11 @@ const bookingSlice = createSlice({
   initialState: DEFAULT_STATE,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(
-        fetchBookingListAction.fulfilled,
-      () => {
-        notification.success({
-          message: "Booking successfully!",
-        })
-      }
-    );
+    builder.addCase(fetchBookingListAction.fulfilled, () => {
+      notification.success({
+        message: "Booking successfully!",
+      });
+    });
   },
 });
 
