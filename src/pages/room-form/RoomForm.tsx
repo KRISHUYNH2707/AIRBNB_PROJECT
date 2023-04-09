@@ -1,4 +1,6 @@
-import { Switch } from "antd";
+
+import { Image, Modal, Switch } from "antd";
+
 import { Button, Col, Form, Input, InputNumber, Row, Select } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { LoadingContext } from "contexts/loading/LoadingContext";
@@ -6,15 +8,20 @@ import { PathAdmin } from "enums";
 import { formItemLayout, tailFormItemLayout } from "hooks/useMyForm";
 import { LocationsDto } from "interfaces/location";
 import { RoomsDto } from "interfaces/room";
-import React, { useState, useContext, useEffect } from "react";
+
+import React, { useState, useContext, useEffect, ChangeEvent } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
 import { fetchLocationListApi } from "services/location";
 import { RootDispatch, RootState } from "store/config";
+import { CloudUploadOutlined } from "@ant-design/icons";
+
 import {
   fetchCreateRoomApiAction,
   fetchGetRoomApiAction,
   fetchUpdateRoomApiAction,
+  fetchUploadImageApiAction,
 } from "store/reducers/roomReducer";
 
 interface RoomData {
@@ -34,7 +41,10 @@ export default function RoomForm(): JSX.Element {
   const dispatch = useDispatch<RootDispatch>();
   const navigate: NavigateFunction = useNavigate();
 
-  //path
+
+  const [file, setFile] = useState<File>();
+  const [imagePreview, setImagePreview] = useState<string>("");
+
   useEffect(() => {
     handleFetchLocationListApi();
   }, []);
@@ -251,93 +261,193 @@ export default function RoomForm(): JSX.Element {
     }
   };
 
+  const handleUploadImage = async (file: File | undefined) => {
+    if (file) {
+      const formData = new FormData() as any;
+      formData.append("formFile", file, file.name);
+      setLoading({ isLoading: true });
+      const result = await dispatch(
+        fetchUploadImageApiAction({
+          id: id,
+          data: formData,
+        })
+      );
+      setLoading({ isLoading: false });
+      if (result.meta.requestStatus === "fulfilled") {
+        navigate(`${PathAdmin.ADMIN + PathAdmin.ROOM}`);
+      }
+    }
+  };
+
+  const handleFile = (event: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+    if (event.target.files?.[0]) {
+      setFile(event.target.files[0]);
+    }
+    const reader = new FileReader();
+    if (selectedFile) {
+      reader.readAsDataURL(selectedFile);
+      reader.onload = (event) => {
+        if (typeof event.target?.result === "string") {
+          setImagePreview(event.target.result);
+        }
+      };
+    }
+  };
+
+  const handleConfirmUpload = (file: File | undefined): void => {
+    Modal.info({
+      title:
+        "Are you want to upload an image for the location you have created?",
+      okText: "Done",
+      cancelText: "None",
+      onOk: () => {
+        handleUploadImage(file);
+      },
+    });
+  };
+
   return (
-    <Form
-      {...formItemLayout}
-      form={form}
-      onFinish={onFinish}
-      style={{ maxWidth: 800 }}
-      initialValues={{
-        hoBoi: false,
-        bep: false,
-        doXe: false,
-        mayGiat: false,
-        banLa: false,
-        wifi: false,
-        tivi: false,
-        dieuHoa: false,
-        banUi: false,
-      }}
-      scrollToFirstError
-      className="mx-auto form-main"
-    >
-      <Header className="mb-4 title-admin">
-        <h1> {roomId ? "Update Room Info" : "Add Room"} </h1>
-      </Header>
-      <div className="p-5">
-        <Form.Item
-          name="maViTri"
-          label="Location"
-          hasFeedback
-          rules={[{ required: true, message: "Please select your country!" }]}
+    <div className="row">
+      <Form
+        {...formItemLayout}
+        form={form}
+        onFinish={onFinish}
+        style={{ maxWidth: 800 }}
+        initialValues={{
+          hoBoi: false,
+          bep: false,
+          doXe: false,
+          mayGiat: false,
+          banLa: false,
+          wifi: false,
+          tivi: false,
+          dieuHoa: false,
+          banUi: false,
+        }}
+        scrollToFirstError
+        className="mx-auto form-main col-8"
+      >
+        <Header className="mb-4 title-admin">
+          <h1> {roomId ? "Update Room Info" : "Add Room"} </h1>
+        </Header>
+        <div className="p-5">
+          <Form.Item
+            name="maViTri"
+            label="Location"
+            hasFeedback
+            rules={[{ required: true, message: "Please select your country!" }]}
+          >
+            <Select placeholder="Please select a location">
+              {renderLocationList()}
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name="tenPhong"
+            label="Room Name"
+            rules={[
+              {
+                required: true,
+                message: "Please input your nickname!",
+                whitespace: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="moTa"
+            label="Description"
+            rules={[{ required: true, message: "Please input Intro" }]}
+          >
+            <Input.TextArea showCount maxLength={500} />
+          </Form.Item>
+
+          <Form.Item label="Rooms">
+            <Row gutter={8}>{renderRoomsInput(roomList)}</Row>
+          </Form.Item>
+
+          <Form.Item label="Amenities">
+            <Row>{renderAmenitiesInput(amenitiesList)}</Row>
+          </Form.Item>
+
+          <Form.Item
+            name="giaTien"
+            label="Price"
+            rules={[
+              { required: true, message: "Please input Price" },
+              {
+                type: "number",
+                min: 10,
+                max: 1000,
+                message: "Price must be between 10 and 1000",
+              },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+
+          <Form.Item {...tailFormItemLayout}>
+            <Button type="primary" htmlType="submit">
+              {!roomId ? "Add Room" : "Update Room"}
+            </Button>
+          </Form.Item>
+        </div>
+      </Form>
+
+      {roomId && (
+        <div
+          className="col-4 form-main"
+          style={{
+            height: 800,
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
         >
-          <Select placeholder="Please select a location">
-            {renderLocationList()}
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          name="tenPhong"
-          label="Room Name"
-          rules={[
-            {
-              required: true,
-              message: "Please input your nickname!",
-              whitespace: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="moTa"
-          label="Description"
-          rules={[{ required: true, message: "Please input Intro" }]}
-        >
-          <Input.TextArea showCount maxLength={500} />
-        </Form.Item>
-
-        <Form.Item label="Rooms">
-          <Row gutter={8}>{renderRoomsInput(roomList)}</Row>
-        </Form.Item>
-
-        <Form.Item label="Amenities">
-          <Row>{renderAmenitiesInput(amenitiesList)}</Row>
-        </Form.Item>
-
-        <Form.Item
-          name="giaTien"
-          label="Price"
-          rules={[
-            { required: true, message: "Please input Price" },
-            {
-              type: "number",
-              min: 10,
-              max: 1000,
-              message: "Price must be between 10 and 1000",
-            },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
-
-        <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
-            {!roomId ? "Add Room" : "Update Room"}
-          </Button>
-        </Form.Item>
-      </div>
-    </Form>
+          <Header
+            className="mb-4 title-admin"
+            style={{
+              width: "100%",
+            }}
+          >
+            <h1> Upload Image</h1>
+          </Header>
+          <Image
+            src={
+              imagePreview !== ""
+                ? imagePreview
+                : hinhAnh === "string" || hinhAnh === ""
+                ? "https://whatdreammeans.com/wp-content/uploads/2021/09/what-does-your-address-mean.png"
+                : hinhAnh
+            }
+            width={400}
+          />
+          <Input type="file" onChange={handleFile} />
+          {imagePreview !== "" && (
+            <Button
+              type="primary"
+              icon={
+                <CloudUploadOutlined
+                  style={{
+                    fontSize: 24,
+                  }}
+                />
+              }
+              size="large"
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+              onClick={() => handleConfirmUpload(file)}
+            >
+              Upload
+            </Button>
+          )}
+        </div>
+      )}
+    </div>
   );
 }

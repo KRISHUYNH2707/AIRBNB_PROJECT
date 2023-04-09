@@ -269,7 +269,7 @@ export default function LocationForm(): JSX.Element {
       </Form>{" "}
       {locationId && (
         <div
-          className="col-6 form-main"
+          className="col-5 form-main"
           style={{
             height: 800,
             display: "flex",
@@ -295,7 +295,7 @@ export default function LocationForm(): JSX.Element {
             }
             width={400}
           />
-          <Input type="file" onChange={(event) => handleFile(event)} />
+          <Input type="file" onChange={handleFile} />
           {imagePreview !== "" && (
             <Button
               type="primary"
